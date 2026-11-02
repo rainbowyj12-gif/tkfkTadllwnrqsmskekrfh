@@ -1,10 +1,14 @@
 
 <head>
-  <link rel="stylesheet"
-        href="">
+  @font-face {
+    font-family: 'Hippie';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2610081905@hippie/hippie/hippie_히피체.woff2') format('woff2');
+    font-weight: 400;
+    font-display: swap;
+}
   <style>
 h1 {
-  font-family: "Jua", sans-serif;
+  font-family: "Hippie", sans-serif;
   color: #10564D;
   text-align: center;
 }
