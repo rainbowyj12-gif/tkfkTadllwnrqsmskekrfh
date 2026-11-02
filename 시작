@@ -1,7 +1,10 @@
 
 <head>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
   <style>
 h1 {
+  font-family: "Jua", sans-serif;
   color: #10564D;
   text-align: center;
 }
