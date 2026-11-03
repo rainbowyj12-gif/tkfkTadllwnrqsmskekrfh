@@ -29,8 +29,8 @@ font-family: "Hippie", sans-serif;
   </style>
 </head>
 <body>
-  margin:0;
   <section id="start-scene">
+      margin:0;
       <h1>식물모아홍익랜듀얼레이드</h1>
   <button>
     <img src="시작버튼" alt="시작하기">
