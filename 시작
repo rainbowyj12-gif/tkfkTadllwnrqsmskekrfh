@@ -31,7 +31,7 @@ font-family: "Hippie", sans-serif;
   flex-direction:column;
   align-items:center;
   justify-content: center;
-
+}
  #password-scene {
       display: none;
       background-color: #D5FAEA;
@@ -43,7 +43,7 @@ font-family: "Hippie", sans-serif;
       align-items: center;
       justify-content: center;
 
-      font-family: Arial, sans-serif;
+      font-family: "IsYun", sans-serif;
     }
 
     #password-scene h2 {
@@ -57,7 +57,7 @@ font-family: "Hippie", sans-serif;
       padding: 10px;
     }
 
-    /소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸 없는 프로그램입니다.../
+    /*소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸 없는 프로그램입니다...*/
     .hint {
       font-family: "IsYun", sans-serif;
       font-size: 12px;
@@ -73,9 +73,9 @@ body {
 <body>
   <section id="start-scene">
       <h1>식물모아홍익랜듀얼레이드</h1>
-  <button>
-    <img src="시작버튼" alt="시작하기">
-  </button>
+ <button onclick="showPasswordScene()">
+  <img src="시작버튼" alt="시작하기">
+</button>
   </section>
   
   <section id="password-scene">
@@ -83,7 +83,7 @@ body {
 
     <input type="password" placeholder="비밀번호">
 
-    <p class="hint">소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸 없는 프로그램입니다...</p>
+    <p class="hint">*소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸 없는 프로그램입니다...*</p>
 
     <button>확인</button>
   </section>
