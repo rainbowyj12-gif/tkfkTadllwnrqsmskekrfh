@@ -9,17 +9,27 @@
     font-display: swap;
 }
 h1 {
-
 font-family: "Hippie", sans-serif;
   color: #10564D;
   text-align: center;
+  font-size:75px;
 }
 #start-scene {
   background-color: #D5FAEA;
+
+  width: 100%;
+  min-heirht: 100vh;
+  box-sizing: border-box;
+
+  display:flex;
+  flex-direction:column;
+  align-item:center;
+  justify-contect:center;
 }
   </style>
 </head>
 <body>
+  margin:0;
   <section id="start-scene">
       <h1>식물모아홍익랜듀얼레이드</h1>
   <button>
