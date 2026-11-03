@@ -1,13 +1,14 @@
 
 <head>
   <style>
-h1 {
-   @font-face {
+@font-face {
     font-family: 'Hippie';
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2610081905@hippie/hippie/hippie_히피체.woff2') format('woff2');
     font-weight: 400;
     font-display: swap;
 }
+h1 {
+
 font-family: "Hippie", sans-serif;
   color: #10564D;
   text-align: center;
@@ -16,6 +17,7 @@ font-family: "Hippie", sans-serif;
   background-color: #D5FAEA;
 }
   </style>
+</head>
 <body>
   <section id="start-scene">
       <h1>식물모아홍익랜듀얼레이드</h1>
