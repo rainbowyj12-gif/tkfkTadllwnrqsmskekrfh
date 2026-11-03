@@ -24,12 +24,14 @@ font-family: "Hippie", sans-serif;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-contect:center;
+  justify-content: center;
 }
   </style>
+body {
+  margin: 0;
+}
 </head>
 <body>
-   margin:0;
   <section id="start-scene">
       <h1>식물모아홍익랜듀얼레이드</h1>
   <button>
