@@ -26,10 +26,10 @@ font-family: "Hippie", sans-serif;
   align-items:center;
   justify-content: center;
 }
-  </style>
 body {
   margin: 0;
 }
+  </style>
 </head>
 <body>
   <section id="start-scene">
