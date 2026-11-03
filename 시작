@@ -38,5 +38,14 @@ body {
     <img src="시작버튼" alt="시작하기">
   </button>
   </section>
+ <section id="password-scene">
+  <h2>선생님으로부터 받은 비밀번호를 입력하세요</h2>
+
+  <input type="password" placeholder="hongikplantmap2026">
+
+  <p class="hint">소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸 없는 프로그램입니다...</p>
+
+  <button>확인</button>
+</section>
 </body>
 </html>
