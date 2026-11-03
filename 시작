@@ -8,6 +8,12 @@
     font-weight: 400;
     font-display: swap;
 }
+@font-face {
+    font-family: 'IsYun';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
 h1 {
 font-family: "Hippie", sans-serif;
   color: #10564D;
@@ -25,6 +31,39 @@ font-family: "Hippie", sans-serif;
   flex-direction:column;
   align-items:center;
   justify-content: center;
+
+ #password-scene {
+      display: none;
+      background-color: #D5FAEA;
+      width: 100%;
+      min-height: 100vh;
+      box-sizing: border-box;
+
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      font-family: Arial, sans-serif;
+    }
+
+    #password-scene h2 {
+      color: #10564D;
+      font-size: 32px;
+    }
+
+    #password-scene input {
+      font-family: "Hippie", sans-serif;
+      font-size: 18px;
+      padding: 10px;
+    }
+
+    /소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸 없는 프로그램입니다.../
+    .hint {
+      font-family: "IsYun", sans-serif;
+      font-size: 12px;
+      color: #55736C;
+      opacity: 0.5;
+      text-align: center;
 }
 body {
   margin: 0;
@@ -38,14 +77,22 @@ body {
     <img src="시작버튼" alt="시작하기">
   </button>
   </section>
- <section id="password-scene">
-  <h2>선생님으로부터 받은 비밀번호를 입력하세요</h2>
+  
+  <section id="password-scene">
+    <h2>비밀번호를 입력하세요</h2>
 
-  <input type="password" placeholder="hongikplantmap2026">
+    <input type="password" placeholder="비밀번호">
 
-  <p class="hint">소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸 없는 프로그램입니다...</p>
+    <p class="hint">소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸 없는 프로그램입니다...</p>
 
-  <button>확인</button>
-</section>
+    <button>확인</button>
+  </section>
+
+  <script>
+    function showPasswordScene() {
+      document.getElementById("start-scene").style.display = "none";
+      document.getElementById("password-scene").style.display = "flex";
+    }
+</script>
 </body>
 </html>
