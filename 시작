@@ -57,7 +57,7 @@ font-family: "Hippie", sans-serif;
       padding: 10px;
     }
 
-    /*소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸 없는 프로그램입니다...*/
+    /*소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸모 없는 프로그램입니다...*/
     .hint {
       font-family: "IsYun", sans-serif;
       font-size: 12px;
@@ -79,11 +79,11 @@ body {
   </section>
   
   <section id="password-scene">
-    <h2>비밀번호를 입력하세요</h2>
+    <h2>비밀번호를 입력하세요.</h2>
 
     <input type="password" placeholder="비밀번호">
 
-    <p class="hint">소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸 없는 프로그램입니다...</p>
+    <p class="hint">소신발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸모 없는 프로그램입니다...</p>
 
     <button>확인</button>
   </section>
