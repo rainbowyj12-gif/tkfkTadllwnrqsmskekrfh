@@ -74,7 +74,7 @@ body {
   <section id="start-scene">
       <h1>식물모아홍익랜듀얼레이드</h1>
  <button onclick="showPasswordScene()">
-  <img src="시작버튼" alt="시작하기">
+  <img src="시작하기.jpg" alt="시작하기">
 </button>
   </section>
   
