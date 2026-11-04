@@ -42,7 +42,6 @@ font-family: "Hippie", sans-serif;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
       font-family: "Hippie", sans-serif;
     }
 
@@ -55,6 +54,18 @@ font-family: "Hippie", sans-serif;
       font-family: "IsYun", sans-serif;
       font-size: 18px;
       padding: 10px;
+    }
+
+    #password-success {
+      font-family: "Hippie", sans-serif;
+      font-size: 60px;
+      color: #10564D;
+      text-align: center;
+    }
+
+    .hint.error {
+      color: red;
+      opacity: 1;
     }
 
     /*소신 발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸모없는 프로그램입니다...*/
@@ -81,20 +92,27 @@ body {
   <section id="password-scene">
     <h2>비밀번호를 입력하세요.</h2>
 
-    <input type="password" placeholder="비밀번호">
+     <div id="password-form">
+    <input id="password-input" type="password" placeholder="hongik2026">
+       소신 발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸모없는 프로그램입니다...
+       <p id="password-hint" class="hint">
+      
+    </p>
 
-    <p class="hint">소신 발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸모없는 프로그램입니다...</p>
+    <div class="button-row">
+      <button onclick="checkPassword()">
+        <img src="확인.png" alt="확인">
+      </button>
 
-    <button>확인</button>
-    <button onclick="checkPassword()">확인</button>
-    <button onclick="backToStart()">뒤로가기</button>
-  </section>
+      <button onclick="goBackToStart()">
+        <img src="뒤로가기.png" alt="뒤로가기">
+      </button>
+    </div>
+  </div>
 
-  <script>
-    function showPasswordScene() {
-      document.getElementById("start-scene").style.display = "none";
-      document.getElementById("password-scene").style.display = "flex";
-    }
-</script>
+  <h1 id="password-success" style="display:none;">
+    확인!
+  </h1>
+</section>
 </body>
 </html>
