@@ -86,6 +86,8 @@ body {
     <p class="hint">소신 발언 하자면, 어떤 이유로든 저희 학교에 오는 게 아니라면 딱히 쓸모없는 프로그램입니다...</p>
 
     <button>확인</button>
+    <button onclick="checkPassword()">확인</button>
+    <button onclick="backToStart()">뒤로가기</button>
   </section>
 
   <script>
