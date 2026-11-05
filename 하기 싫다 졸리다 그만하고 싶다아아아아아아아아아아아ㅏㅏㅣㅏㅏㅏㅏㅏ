@@ -49,12 +49,12 @@ margin: 0;
     text: "괴도식물단이 내가 모은 식물들을 훔쳐가 버렸어..."
   }
   {
-    character: "images/character2.png",
+    character: "KakaoTalk_20261104_194403328.png",
     text: "내가 열심히 모은 식물들을...!"
   }
    {
-    character: "images/character2.png",
-    text: "괜찮다면, 내 식물들을 찾아줄래...?"
+    character: "KakaoTalk_20261104_194403328.png",
+    text: "그래서 말이야... 괜찮다면, 내 식물들을 찾아줄래...?"
   }
 ];
 </section>
