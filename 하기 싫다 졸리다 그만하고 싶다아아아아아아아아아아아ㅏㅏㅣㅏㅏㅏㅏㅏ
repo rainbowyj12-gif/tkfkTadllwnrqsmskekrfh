@@ -57,6 +57,16 @@ margin: 0;
     text: "그래서 말이야... 괜찮다면, 내 식물들을 찾아줄래...?"
   }
 ];
+
+    <div id="choice-buttons">
+  <button id="yes">
+    <img src="images/O-button.png" alt="O">
+  </button>
+
+  <button id="no">
+    <img src="images/X-button.png" alt="X">
+  </button>
+</div>
 </section>
 
   <button id="skip">
