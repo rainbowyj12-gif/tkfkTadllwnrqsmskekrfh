@@ -38,8 +38,6 @@ margin: 0;
   </button>  
   </section>  
 
-<section id="intro" style="display: none;">
-     const dialogues = [
   {
     character: "KakaoTalk_20261104_194403328_02.png",
     text: "안녕... 나는 오동이라고 해..."
@@ -58,13 +56,26 @@ margin: 0;
   }
 ];
 
+  const question = "그래서 말이야... 괜찮다면, 내 식물들을 찾아줄래...?";
+
+document.getElementById("yes-button").addEventListener("click", () => {
+  document.getElementById("character-image").src =
+    "KakaoTalk_20261104_194403328_01.png";
+  showDialogue("그래? 정말 고마워...!");
+});
+
+document.getElementById("no-button").addEventListener("click", () => {
+  showDialogue("진짜...? 한 번만 더 생각해주면 안 될까...?");
+  // 잠시 후 질문을 다시 보여주도록 연결
+});
+
     <div id="choice-buttons">
   <button id="yes">
-    <img src="images/O-button.png" alt="O">
+    <img src="확.png" alt="O">
   </button>
 
   <button id="no">
-    <img src="images/X-button.png" alt="X">
+    <img src="취소.png" alt="X">
   </button>
 </div>
 </section>
