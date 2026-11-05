@@ -1,88 +1,360 @@
 
-<html>  
-<head>  
-  <style>  
-@font-face {  
-    font-family: 'Hippie';  
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2610081905@hippie/hippie/hippie_히피체.woff2') format('woff2');  
-    font-weight: 400;  
-    font-display: swap;  
-}  
-h1 {  
-font-family: "Hippie", sans-serif;  
-  color: #10564D;  
-  text-align: center;  
-  font-size:75px;  
-}  
-#start-scene {  
-  background-color: #D5FAEA;  width: 100%;
-min-height: 100vh;
-box-sizing: border-box;
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content: center;
-}
-body {
-margin: 0;
-}
-</style>
+  <title>식물모아홍익랜듀얼레이드</title>
 
-</head>  
-<body>  
-  <section id="start">  
-      <h1>식물모아홍익랜듀얼레이드</h1>  
-  <button>  
-    <img src="시작하기.png" alt="시작하기">  
-  </button>  
-  </section>  
+  <style>
+    @font-face {
+      font-family: 'Hippie';
+      src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2610081905@hippie/hippie/hippie_히피체.woff2') format('woff2');
+      font-weight: 400;
+      font-display: swap;
+    }
 
-  {
-    character: "KakaoTalk_20261104_194403328_02.png",
-    text: "안녕... 나는 오동이라고 해..."
-  },
-  {
-    character: "KakaoTalk_20261104_194403328_02.png",
-    text: "괴도식물단이 내가 모은 식물들을 훔쳐가 버렸어..."
-  }
-  {
-    character: "KakaoTalk_20261104_194403328.png",
-    text: "내가 열심히 모은 식물들을...!"
-  }
-   {
-    character: "KakaoTalk_20261104_194403328_02.png",
-    text: "그래서 말이야... 괜찮다면, 내 식물들을 찾아줄래...?"
-  }
-];
+    * {
+      box-sizing: border-box;
+    }
 
-  const question = "그래서 말이야... 괜찮다면, 내 식물들을 찾아줄래...?";
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
 
-document.getElementById("yes-button").addEventListener("click", () => {
-  document.getElementById("character-image").src =
-    "KakaoTalk_20261104_194403328_01.png";
-  showDialogue("그래? 정말 고마워...!");
-});
+    h1 {
+      font-family: "Hippie", sans-serif;
+      color: #10564D;
+      text-align: center;
+      font-size: 75px;
+    }
 
-document.getElementById("no-button").addEventListener("click", () => {
-  showDialogue("진짜...? 한 번만 더 생각해주면 안 될까...?");
-  // 잠시 후 질문을 다시 보여주도록 연결
-});
+    button {
+      border: none;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    button img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    #start,
+    #intro,
+    #explore {
+      width: 100%;
+      min-height: 100vh;
+      background-color: #D5FAEA;
+    }
+
+    #start {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #intro {
+      display: none;
+      position: relative;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    #character-image {
+      max-width: 45vw;
+      max-height: 45vh;
+      object-fit: contain;
+    }
+
+   #dialogue-box,
+   #dialogue-text,
+   #click-hint {
+     font-family: "Hippie", sans-serif;
+    }
+
+    #click-hint {
+      margin: 10px 0;
+      color: #10564D;
+      font-size: 16px;
+    }
+
+    #choice-buttons {
+      display: none;
+      gap: 30px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    #choice-buttons img {
+      width: 100px;
+    }
+
+    #back-button,
+    #skip-button {
+      position: absolute;
+      top: 20px;
+    }
+
+    #back-button {
+      left: 20px;
+    }
+
+    #skip-button {
+      right: 20px;
+    }
+
+    #back-button img,
+    #skip-button img {
+      width: 55px;
+    }
+
+    #explore {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section id="start-scene">
+    <h1>식물모아홍익랜듀얼레이드</h1>
+
+    <button id="start-button">
+      <img src="시작하기.png" alt="시작하기">
+    </button>
+  </section>
+
+  <section id="intro-scene">
+
+    <button id="back-button">
+      <img src="뒤로가기.png" alt="뒤로가기">
+    </button>
+
+    <button id="skip-button">
+      <img src="건너뛰기.png" alt="건너뛰기">
+    </button>
+
+    <img
+      id="character-image"
+      src="KakaoTalk_20261104_194403328_02.png"
+      alt="오동이"
+    >
+
+    <div id="dialogue-box">
+      <p id="dialogue-text"></p>
+    </div>
+
+    <p id="click-hint">화면을 클릭하세요</p>
 
     <div id="choice-buttons">
-  <button id="yes">
-    <img src="확.png" alt="O">
-  </button>
+      <button id="yes-button">
+        <img src="확인.png" alt="O">
+      </button>
 
-  <button id="no">
-    <img src="취소.png" alt="X">
-  </button>
-</div>
-</section>
+      <button id="no-button">
+        <img src="취소.png" alt="X">
+      </button>
+    </div>
 
-  <button id="skip">
-    <img src="건너뛰기.png" alt="건너뛰기">
-  </button>
   </section>
-</body>  
+
+  <!-- 탐험 화면 임시 자리 -->
+  <section id="explore">
+  </section>
+
+  <script>
+    const startScene = document.getElementById("start-scene");
+    const introScene = document.getElementById("intro-scene");
+    const exploreScene = document.getElementById("explore-scene");
+
+    const characterImage = document.getElementById("character-image");
+    const dialogueText = document.getElementById("dialogue-text");
+    const dialogueBox = document.getElementById("dialogue-box");
+    const clickHint = document.getElementById("click-hint");
+    const choiceButtons = document.getElementById("choice-buttons");
+
+    const yesButton = document.getElementById("yes-button");
+    const noButton = document.getElementById("no-button");
+
+    const dialogues = [
+      {
+        character: "KakaoTalk_20261104_194403328_02.png",
+        text: "안녕... 나는 오동이라고 해..."
+      },
+      {
+        character: "KakaoTalk_20261104_194403328_02.png",
+        text: "괴도식물단이 내가 모은 식물들을 훔쳐가 버렸어..."
+      },
+      {
+        character: "KakaoTalk_20261104_194403328.png",
+        text: "내가 열심히 모은 식물들을...!"
+      },
+      {
+        character: "KakaoTalk_20261104_194403328_02.png",
+        text: "그래서 말이야... 괜찮다면, 내 식물들을 찾아줄래...?"
+      }
+    ];
+
+    let dialogueIndex = 0;
+    let typingTimer = null;
+    let isTyping = false;
+    let currentFullText = "";
+    let currentCharacter = "";
+    let afterResponse = "";
+
+    document.getElementById("start-button").addEventListener("click", () => {
+      startScene.style.display = "none";
+      exploreScene.style.display = "none";
+      introScene.style.display = "flex";
+
+      dialogueIndex = 0;
+      showDialogue(dialogues[dialogueIndex]);
+    });
+
+    function showDialogue(dialogue) {
+      clearInterval(typingTimer);
+
+      choiceButtons.style.display = "none";
+      clickHint.style.display = "block";
+
+      currentFullText = dialogue.text;
+      currentCharacter = dialogue.character;
+
+      characterImage.src = currentCharacter;
+      dialogueText.textContent = "";
+
+      let charIndex = 0;
+      isTyping = true;
+
+      typingTimer = setInterval(() => {
+        dialogueText.textContent += currentFullText.charAt(charIndex);
+        charIndex++;
+
+        if (charIndex >= currentFullText.length) {
+          clearInterval(typingTimer);
+          isTyping = false;
+        }
+      }, 55);
+    }
+
+    function advanceDialogue() {
+      if (isTyping) {
+        clearInterval(typingTimer);
+        dialogueText.textContent = currentFullText;
+        isTyping = false;
+        return;
+      }
+
+      if (afterResponse === "repeat-question") {
+        afterResponse = "";
+        showQuestion();
+        return;
+      }
+
+      if (afterResponse === "go-explore") {
+        afterResponse = "";
+        goToExplore();
+        return;
+      }
+
+      dialogueIndex++;
+
+      if (dialogueIndex < dialogues.length) {
+        showDialogue(dialogues[dialogueIndex]);
+      } else {
+        showQuestion();
+      }
+    }
+
+    function showQuestion() {
+      clearInterval(typingTimer);
+      isTyping = false;
+
+      characterImage.src =
+        "KakaoTalk_20261104_194403328_02.png";
+
+      currentFullText =
+        "그래서 말이야... 괜찮다면, 내 식물들을 찾아줄래...?";
+
+      dialogueText.textContent = currentFullText;
+      choiceButtons.style.display = "flex";
+    }
+
+    introScene.addEventListener("click", (event) => {
+      if (event.target.closest("button")) {
+        return;
+      }
+
+      if (choiceButtons.style.display === "flex") {
+        return;
+      }
+
+      advanceDialogue();
+    });
+
+    yesButton.addEventListener("click", () => {
+      choiceButtons.style.display = "none";
+
+      characterImage.src =
+        "KakaoTalk_20261104_194403328_01.png";
+
+      afterResponse = "go-explore";
+
+      showDialogue({
+        character: "KakaoTalk_20261104_194403328_01.png",
+        text: "그래? 정말 고마워...!"
+      });
+    });
+
+    noButton.addEventListener("click", () => {
+      choiceButtons.style.display = "none";
+
+      afterResponse = "repeat-question";
+
+      showDialogue({
+        character: "KakaoTalk_20261104_194403328_02.png",
+        text: "진짜...? 한 번만 더 생각해주면 안 될까...?"
+      });
+    });
+
+    document.getElementById("back-button").addEventListener("click", () => {
+      clearInterval(typingTimer);
+      isTyping = false;
+
+      introScene.style.display = "none";
+      exploreScene.style.display = "none";
+      startScene.style.display = "flex";
+
+      afterResponse = "";
+    });
+
+    document.getElementById("skip").addEventListener("click", () => {
+      goToExplore();
+    });
+
+    function goToExplore() {
+      clearInterval(typingTimer);
+      isTyping = false;
+
+      startScene.style.display = "none";
+      introScene.style.display = "none";
+      exploreScene.style.display = "flex";
+    }
+  </script>
+
+</body>
 </html>
