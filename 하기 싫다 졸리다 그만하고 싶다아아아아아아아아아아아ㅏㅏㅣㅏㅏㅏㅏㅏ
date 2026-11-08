@@ -145,7 +145,12 @@
       justify-content: center;
       padding: 24px;
       text-align: center;
-    }
+
+      background-image: url("2026 과학수행 지도.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      }
 
     @media (max-width: 600px) {
       h1 {
