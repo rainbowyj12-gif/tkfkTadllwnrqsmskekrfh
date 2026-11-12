@@ -2,1724 +2,1506 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>식물모아홍익랜듀얼레이드</title>
-
-  <style>
-    @font-face {
-      font-family: 'Hippie';
-      src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2610081905@hippie/hippie/hippie_히피체.woff2') format('woff2');
-      font-weight: 400;
-      font-display: swap;
-    }
-
-    @font-face {
-      font-family: 'IsYun';
-      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
-      font-weight: normal;
-      font-display: swap;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: sans-serif;
-    }
-
-    button {
-      border: none;
-      padding: 0;
-      background: transparent;
-      cursor: pointer;
-    }
-
-    button img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-    }
-
-    #start,
-    #intro,
-    #explore,
-    #outro,
-    #credits {
-      width: 100%;
-      min-height: 100vh;
-      background-color: #D5FAEA;
-    }
-
-    #start {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    h1 {
-      font-family: "Hippie", sans-serif;
-      color: #10564D;
-      text-align: center;
-      font-size: 75px;
-    }
-
-    #intro {
-      display: none;
-      position: relative;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      gap: 15px;
-    }
-
-    #outro {
-      display: none;
-      position: relative;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      gap: 15px;
-    }
-
-    #credits {
-      display: none;
-      color: #10564D;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      gap: 15px;
-      padding: 30px;
-      font-family: "IsYun", sans-serif;
-    }
-
-    #credits h1 {
-      font-family: "Hippie", sans-serif;
-    }
-
-    #credits button {
-      background-color: #10564D;
-      color: white;
-      padding: 12px 25px;
-      border-radius: 10px;
-      font-size: 18px;
-    }
-
-    #outro-character {
-      max-width: 45vw;
-      max-height: 45vh;
-      object-fit: contain;
-    }
-
-    #outro-dialogue-box {
-      width: 90%;
-      max-width: 900px;
-      text-align: center;
-      padding: 10px;
-    }
-
-    #outro-dialogue-text {
-      font-family: "Hippie", sans-serif;
-      font-size: 50px;
-      font-weight: bold;
-      color: #10564D;
-      line-height: 1.6;
-      margin: 0;
-      word-break: keep-all;
-    }
-
-    #outro-click-hint {
-      font-family: "IsYun", sans-serif;
-      font-size: 16px;
-      color: #78909C;
-      margin: 5px 0;
-    }
-
-    #outro-skip {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
-
-    #outro-skip img {
-      width: 55px;
-    }
-
-    #character-image {
-      max-width: 45vw;
-      max-height: 45vh;
-      object-fit: contain;
-    }
-
-    #dialogue-box {
-      width: 90%;
-      max-width: 900px;
-      text-align: center;
-      padding: 10px;
-    }
-
-    #dialogue-text {
-      font-family: "Hippie", sans-serif;
-      font-size: 50px;
-      font-weight: bold;
-      color: #10564D;
-      line-height: 1.6;
-      margin: 0;
-      word-break: keep-all;
-    }
-
-    #click-hint {
-      font-family: "IsYun", sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      color: #78909C;
-      margin: 5px 0;
-      letter-spacing: 1px;
-    }
-
-    #choice-buttons {
-      display: none;
-      gap: 30px;
-      align-items: center;
-      justify-content: center;
-      margin-top: 16px;
-    }
-
-    #choice-buttons img {
-      width: 100px;
-    }
-
-    #back-button,
-    #skip-button {
-      position: absolute;
-      top: 20px;
-    }
-
-    #back-button {
-      left: 20px;
-    }
-
-    #skip-button {
-      right: 20px;
-    }
-
-    #back-button img,
-    #skip-button img {
-      width: 55px;
-    }
-
-    /* 탐험 화면 */
-
-    #explore {
-      display: none;
-      position: fixed;
-      inset: 0;
-
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
-      min-height: 0;
-
-      padding: 0;
-
-      flex-direction: row;
-      align-items: stretch;
-      justify-content: stretch;
-
-      overflow: hidden;
-      text-align: center;
-    }
-
-    /* 왼쪽 메뉴 */
-
-    #side-menu {
-      width: 155px;
-      min-width: 155px;
-      height: 100%;
-
-      background-color: white;
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-
-      gap: 20px;
-      padding: 20px 10px;
-
-      overflow: hidden;
-    }
-
-    .menu-button {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .menu-button img {
-      width: 100px;
-      max-height: 85px;
-      object-fit: contain;
-    }
-
-    #collection-count {
-      margin: 0;
-      font-size: 18px;
-      font-weight: bold;
-      color: #10564D;
-    }
-
-    /* 오른쪽 지도 영역 */
-
-    #map-area {
-      flex: 1;
-      min-width: 0;
-      height: 100%;
-
-      position: relative;
-
-      background-color: #9BD9E8;
-
-      overflow: hidden;
-    }
-
-    /* 지도 이미지 */
-
-    #map-image {
-      position: absolute;
-
-      width: 100%;
-      height: 100%;
-
-      top: 0;
-      left: 0;
-
-      object-fit: contain;
-      object-position: center;
-
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* 팝업 */
-
-    .popup {
-      display: none;
-
-      position: absolute;
-      z-index: 10;
-
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      width: min(85%, 700px);
-      max-height: 85%;
-
-      overflow-y: auto;
-
-      padding: 25px;
-
-      background-color: white;
-      border-radius: 18px;
-    }
-
-    /* 큰 식물 카드 */
-
-    #large-card {
-      display: none;
-
-      position: absolute;
-      z-index: 20;
-
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-
-      width: min(80%, 450px);
-
-      flex-direction: column;
-      align-items: center;
-
-      padding: 20px;
-
-      background-color: white;
-      border-radius: 18px;
-
-      cursor: pointer;
-    }
-
-    #large-card-image {
-      width: 100%;
-      max-height: 60vh;
-      object-fit: contain;
-    }
-
-    #large-card-name {
-      color: #10564D;
-    }
-
-    #dictionary-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .plant-card {
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .plant-card img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-      border-radius: 12px;
-    }
-
-    #dictionary-pagination {
-      grid-column: 1 / -1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    #dictionary-pagination button {
-      padding: 8px 14px;
-      background: #D5FAEA;
-      border-radius: 8px;
-    }
-
-    #dictionary-pagination button:disabled {
-      opacity: 0.35;
-      cursor: default;
-    }
-
-    /* 작은 화면 */
-
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 42px;
-      }
-
-      #dialogue-text {
-        font-size: 23px;
-      }
-
-      #outro-dialogue-text {
-        font-size: 23px;
-      }
-
-      #outro-click-hint {
-        font-size: 14px;
-      }
-
-      #outro-character {
-        max-width: 75vw;
-      }
-
-      #click-hint {
-        font-size: 14px;
-      }
-
-      #character-image {
-        max-width: 75vw;
-      }
-
-      #side-menu {
-        width: 100px;
-        min-width: 100px;
-        gap: 15px;
-        padding: 15px 5px;
-      }
-
-      .menu-button img {
-        width: 75px;
-      }
-
-      #collection-count {
-        font-size: 14px;
-      }
-
-      .popup {
-        width: 90%;
-        padding: 15px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>식물모아홍익랜듀얼레이드</title>
+
+<style>
+@font-face {
+  font-family: 'Hippie';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2610081905@hippie/hippie/hippie_히피체.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IsYun';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+button {
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+button img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#start, #intro, #explore, #outro, #credits {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  background-color: #D5FAEA;
+}
+
+/* 시작 화면 */
+
+#start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-family: "Hippie", sans-serif;
+  color: #10564D;
+  text-align: center;
+  font-size: 75px;
+}
+
+/* 인트로 */
+
+#intro {
+  display: none;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  gap: 15px;
+}
+
+#character-image {
+  max-width: 45vw;
+  max-height: 45vh;
+  object-fit: contain;
+}
+
+#dialogue-box {
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+  padding: 10px;
+}
+
+#dialogue-text {
+  font-family: "Hippie", sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  color: #10564D;
+  line-height: 1.6;
+  margin: 0;
+  word-break: keep-all;
+}
+
+#click-hint, #outro-click-hint {
+  font-family: "IsYun", sans-serif;
+  font-size: 16px;
+  color: #78909C;
+  margin: 5px 0;
+}
+
+#choice-buttons {
+  display: none;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+#choice-buttons img {
+  width: 100px;
+}
+
+#back-button, #skip-button, #outro-skip {
+  position: absolute;
+  top: 20px;
+}
+
+#back-button {
+  left: 20px;
+}
+
+#skip-button, #outro-skip {
+  right: 20px;
+}
+
+#back-button img, #skip-button img, #outro-skip img {
+  width: 55px;
+}
+
+/* 아웃트로 */
+
+#outro {
+  display: none;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  gap: 15px;
+}
+
+#outro-character {
+  max-width: 45vw;
+  max-height: 45vh;
+  object-fit: contain;
+}
+
+#outro-dialogue-box {
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+  padding: 10px;
+}
+
+#outro-dialogue-text {
+  font-family: "Hippie", sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  color: #10564D;
+  line-height: 1.6;
+  margin: 0;
+  word-break: keep-all;
+}
+
+/* 크레딧 */
+
+#credits {
+  display: none;
+  color: #10564D;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+  padding: 30px;
+  font-family: "IsYun", sans-serif;
+  overflow-y: auto;
+}
+
+#credits h1 {
+  font-family: "Hippie", sans-serif;
+}
+
+#credits p, #credits h2 {
+  margin: 5px;
+}
+
+#restart-button img {
+  width: 120px;
+}
+
+/* 탐험 화면 */
+
+#explore {
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  padding: 0;
+
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: stretch;
+
+  overflow: hidden;
+  text-align: center;
+}
+
+/* 왼쪽 메뉴 */
+
+#side-menu {
+  width: 155px;
+  min-width: 155px;
+  height: 100%;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 20px;
+  padding: 20px 10px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.menu-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-button img {
+  width: 100px;
+  max-height: 85px;
+  object-fit: contain;
+}
+
+#collection-count {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #10564D;
+}
+
+/* 지도 */
+
+#map-area {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+
+  background-image: url("2026 과학수행 지도.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #D5FAEA;
+}
+
+/* 팝업 */
+
+.popup {
+  display: none;
+  position: absolute;
+  z-index: 10;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: min(85%, 700px);
+  max-height: 85%;
+  overflow-y: auto;
+
+  padding: 25px;
+  background-color: white;
+  border-radius: 18px;
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 45px;
+}
+
+.popup-close img {
+  width: 100%;
+}
+
+.popup h2 {
+  color: #10564D;
+  margin-top: 15px;
+}
+
+.popup p {
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 도감 */
+
+#dictionary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.plant-card {
+  cursor: pointer;
+  text-align: center;
+}
+
+.plant-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+#dictionary-pagination {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+#dictionary-pagination button {
+  padding: 8px 14px;
+  background: #D5FAEA;
+  border-radius: 8px;
+}
+
+#dictionary-pagination button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* 큰 식물 카드 */
+
+#large-card {
+  display: none;
+  position: absolute;
+  z-index: 20;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: min(80%, 450px);
+
+  flex-direction: column;
+  align-items: center;
+
+  padding: 20px;
+  background-color: white;
+  border-radius: 18px;
+  cursor: pointer;
+}
+
+#large-card-image {
+  width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+}
+
+#large-card-name {
+  color: #10564D;
+}
+
+/* 카메라 */
+
+#photo-preview {
+  display: none;
+  max-width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  margin: 15px auto;
+}
+
+#recognition-result {
+  color: #10564D;
+  font-weight: bold;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.confirm-buttons button {
+  background-color: #D5FAEA;
+  color: #10564D;
+  padding: 10px 25px;
+  border-radius: 8px;
+}
+
+/* 작은 화면 */
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 42px;
+  }
+
+  #dialogue-text, #outro-dialogue-text {
+    font-size: 23px;
+  }
+
+  #outro-click-hint, #click-hint {
+    font-size: 14px;
+  }
+
+  #outro-character, #character-image {
+    max-width: 75vw;
+  }
+
+  #side-menu {
+    width: 100px;
+    min-width: 100px;
+    gap: 15px;
+    padding: 15px 5px;
+  }
+
+  .menu-button img {
+    width: 75px;
+  }
+
+  #collection-count {
+    font-size: 14px;
+  }
+
+  .popup {
+    width: 90%;
+    padding: 15px;
+  }
+
+  #dictionary-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <section id="start">
-    <h1>식물모아홍익랜듀얼레이드</h1>
+<!-- 시작 화면 -->
 
-    <button id="start-button">
-      <img src="ui/시작하기.jpg" alt="시작하기">
+<section id="start">
+  <h1>식물모아홍익랜듀얼레이드</h1>
+
+  <button id="start-button">
+    <img src="ui/시작하기.jpg" alt="시작하기">
+  </button>
+</section>
+
+<!-- 인트로 -->
+
+<section id="intro">
+
+  <button id="back-button">
+    <img src="ui/뒤로가기.png" alt="뒤로가기">
+  </button>
+
+  <button id="skip-button">
+    <img src="ui/건너뛰기.png" alt="건너뛰기">
+  </button>
+
+  <img
+    id="character-image"
+    src="charater/KakaoTalk_20261104_194403328_02.png"
+    alt="오동이"
+  >
+
+  <div id="dialogue-box">
+    <p id="dialogue-text"></p>
+  </div>
+
+  <p id="click-hint">화면을 클릭하세요</p>
+
+  <div id="choice-buttons">
+    <button id="yes-button">
+      <img src="ui/확인.png" alt="O">
     </button>
-  </section>
 
+    <button id="no-button">
+      <img src="ui/취소.png" alt="X">
+    </button>
+  </div>
+</section>
 
-  <section id="intro">
+<!-- 아웃트로 -->
 
-    <button id="back-button">
-      <img src="ui/뒤로가기.png" alt="뒤로가기">
+<section id="outro">
+
+  <button id="outro-skip">
+    <img src="ui/건너뛰기.png" alt="건너뛰기">
+  </button>
+
+  <img
+    id="outro-character"
+    src="charater/KakaoTalk_20261104_194403328_02.png"
+    alt="오동이"
+  >
+
+  <div id="outro-dialogue-box">
+    <p id="outro-dialogue-text"></p>
+  </div>
+
+  <p id="outro-click-hint">화면을 클릭하세요</p>
+</section>
+
+<!-- 크레딧 -->
+
+<section id="credits">
+  <h1>THE END</h1>
+
+  <h2>팀원</h2>
+
+  <p>2414 이혜민</p>
+  <p>2416 임연우</p>
+  <p>2417 전예지</p>
+  <p>2422 한유은</p>
+  <p>2423 황혜나</p>
+  <p>AI 모델: Teachable Machine</p>
+  <p>특별출연: 오동이(우리 학교 동상)</p>
+  <p>플레이해 주셔서 감사합니다!</p>
+
+  <button id="restart-button">
+    <img src="ui/다시하기.png" alt="다시하기">
+  </button>
+</section>
+
+<!-- 탐험 화면 -->
+
+<section id="explore">
+
+  <aside id="side-menu">
+
+    <button class="menu-button" id="dictionary-button">
+      <img src="ui/사전.png" alt="사전">
     </button>
 
-    <button id="skip-button">
-      <img src="ui/건너뛰기.png" alt="건너뛰기">
+    <p id="collection-count">0/34</p>
+
+    <button class="menu-button" id="help-button">
+      <img src="ui/방법.png" alt="사용법">
     </button>
 
-    <img
-      id="character-image"
-      src="charater/KakaoTalk_20261104_194403328_02.png"
-      alt="오동이"
-    >
+    <button class="menu-button" id="camera-button">
+      <img src="ui/카메라.png" alt="카메라">
+    </button>
 
-    <div id="dialogue-box">
-      <p id="dialogue-text"></p>
+    <button class="menu-button" id="exit-button">
+      <img src="ui/취소.png" alt="종료">
+    </button>
+
+  </aside>
+
+  <div id="map-area">
+
+    <!-- 도감 팝업 -->
+
+    <div class="popup" id="dictionary-popup">
+
+      <button class="popup-close" data-close="dictionary-popup">
+        <img src="ui/뒤로가기.png" alt="닫기">
+      </button>
+
+      <h2>식물 도감</h2>
+
+      <div id="dictionary-cards"></div>
+
     </div>
 
-    <p id="click-hint">화면을 클릭하세요</p>
+    <!-- 사용법 팝업 -->
 
-    <div id="choice-buttons">
+    <div class="popup" id="help-popup">
 
-      <button id="yes-button">
-        <img src="ui/확인.png" alt="O">
+      <button class="popup-close" data-close="help-popup">
+        <img src="ui/뒤로가기.png" alt="닫기">
       </button>
 
-      <button id="no-button">
-        <img src="ui/취소.png" alt="X">
-      </button>
+      <h2>게임 사용법</h2>
+
+      <p>사전: 지금까지 수집한 식물 카드를 확인합니다.</p>
+      <p>카메라: 식물 사진을 촬영하거나 업로드할 수 있습니다.</p>
+      <p>종료: 시작 화면으로 돌아갑니다. 모든 기록은 초기화됩니다.</p>
+      <p>식물이 인식되면 해당 식물 카드를 획득할 수 있습니다.</p>
+      <p>중복된 사진은 개수로 인정되지 않습니다.</p>
+      <p>해당 게임은 식물 분류에 AI를 사용하므로 결과가 틀릴 수 있습니다.</p>
 
     </div>
 
-  </section>
+    <!-- 카메라 팝업 -->
 
+    <div class="popup" id="camera-popup">
 
-  <section id="outro">
-
-    <button id="outro-skip">
-      <img src="ui/건너뛰기.png" alt="건너뛰기">
-    </button>
-
-    <img
-      id="outro-character"
-      src="charater/KakaoTalk_20261104_194403328_02.png"
-      alt="오동이"
-    >
-
-    <div id="outro-dialogue-box">
-      <p id="outro-dialogue-text"></p>
-    </div>
-
-    <p id="outro-click-hint">화면을 클릭하세요</p>
-
-  </section>
-
-
-  <section id="credits">
-
-    <h1>THE END</h1>
-
-    <h2>팀원</h2>
-
-    <p>2414 이혜민</p>
-    <p>2416 임연우</p>
-    <p>2417 전예지</p>
-    <p>2422 한유은</p>
-    <p>2423 황혜나</p>
-    <p>AI 모델: Teachable Machine</p>
-    <p>특별출연: 오동이(우리 학교 동상)</p>
-
-    <p>플레이해 주셔서 감사합니다!</p>
-
-    <button id="restart-button">
-      <img src="ui/다시하기.png" alt="다시하기">
-    </button>
-
-  </section>
-
-
-  <section id="explore">
-
-    <aside id="side-menu">
-
-      <button class="menu-button" id="dictionary-button">
-        <img src="ui/사전.png" alt="사전">
+      <button class="popup-close" data-close="camera-popup">
+        <img src="ui/뒤로가기.png" alt="닫기">
       </button>
 
-      <p id="collection-count">0/34</p>
+      <h2>식물 발견!</h2>
 
-      <button class="menu-button" id="help-button">
-        <img src="ui/방법.png" alt="사용법">
-      </button>
+      <p>식물 사진을 촬영하거나 업로드해주세요.</p>
 
-      <button class="menu-button" id="camera-button">
-        <img src="ui/카메라.png" alt="카메라">
-      </button>
-
-      <button class="menu-button" id="exit-button">
-        <img src="ui/취소.png" alt="종료">
-      </button>
-
-    </aside>
-
-
-    <div id="map-area">
-
-      <!-- 지도 이미지 -->
-      <img
-        id="map-image"
-        src="2026 과학수행 지도.png"
-        alt="학교 지도"
+      <input
+        type="file"
+        id="plant-upload"
+        accept="image/*"
+        capture="environment"
       >
 
-      <div class="popup" id="dictionary-popup">
+      <img id="photo-preview" alt="업로드한 식물 사진">
 
-        <button class="popup-close" data-close="dictionary-popup">
-          <img src="ui/뒤로가기.png" alt="닫기">
-        </button>
+      <p id="recognition-result">사진을 선택해 주세요.</p>
 
-        <h2>식물 도감</h2>
+    </div>
 
-        <div id="dictionary-cards"></div>
+    <!-- 종료 확인 팝업 -->
 
-      </div>
+    <div class="popup" id="exit-popup">
 
+      <button class="popup-close" data-close="exit-popup">
+        <img src="ui/취소.png" alt="닫기">
+      </button>
 
-      <div class="popup" id="help-popup">
+      <h2>게임 종료</h2>
 
-        <button class="popup-close" data-close="help-popup">
-          <img src="ui/뒤로가기.png" alt="닫기">
-        </button>
+      <p id="exit-question">정말로 나가시겠습니까?</p>
 
-        <h2>게임 사용법</h2>
-
-        <p><img src="ui/사전.png" alt="사전">: 지금까지 수집한 식물 카드를 확인합니다.</p>
-        <p><img src="ui/카메라.png" alt="카메라">: 식물 사진을 촬영하거나 업로드할 수 있습니다.</p>
-        <p><img src="ui/취소.png" alt="닫기">: 시작 화면으로 돌아갑니다. 모든 기록은 초기화됩니다.</p>
-        <p>식물이 인식되면 해당 식물 카드를 획득할 수 있습니다.</p>
-        <p>중복된 사진은 개수로 인정되지 않습니다.</p>
-        <p>해당 게임은 식물 분류에 AI를 사용하므로, 결과가 틀릴 수 있습니다.</p>
-
-      </div>
-
-
-      <div class="popup" id="camera-popup">
-
-        <button class="popup-close" data-close="camera-popup">
-          <img src="ui/뒤로가기.png" alt="닫기">
-        </button>
-
-        <h2>식물 발견!</h2>
-
-        <p>식물 사진을 촬영하거나 업로드해주세요.</p>
-
-        <input
-          type="file"
-          id="plant-upload"
-          accept="image/*"
-          capture="environment"
-        >
-
-        <img id="photo-preview" alt="업로드한 식물 사진">
-
-        <p id="recognition-result">사진을 선택해 주세요.</p>
-
-      </div>
-
-
-      <div class="popup" id="exit-popup">
-
-        <button class="popup-close" data-close="exit-popup">
-          <img src="ui/취소.png" alt="닫기">
-        </button>
-
-        <h2>게임 종료</h2>
-
-        <p id="exit-question">
-          정말로 나가시겠습니까?
-        </p>
-
-        <div class="confirm-buttons">
-
-          <button id="exit-yes">예</button>
-
-          <button id="exit-no">아니요</button>
-
-        </div>
-
-      </div>
-
-
-      <div id="large-card">
-
-        <img id="large-card-image" src="" alt="식물 카드">
-
-        <h2 id="large-card-name"></h2>
-
+      <div class="confirm-buttons">
+        <button id="exit-yes">예</button>
+        <button id="exit-no">아니요</button>
       </div>
 
     </div>
 
-  </section>
+    <!-- 큰 식물 카드 -->
 
+    <div id="large-card">
+      <img id="large-card-image" src="" alt="식물 카드">
+      <h2 id="large-card-name"></h2>
+    </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  </div>
+</section>
 
-  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<!-- AI 라이브러리 -->
 
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
-  <script>
+<script>
 
-    const startScene = document.getElementById("start");
-    const introScene = document.getElementById("intro");
-    const exploreScene = document.getElementById("explore");
-    const outroScene = document.getElementById("outro");
-    const creditsScene = document.getElementById("credits");
+/* ==============================
+   화면 요소
+============================== */
 
-    const characterImage =
-      document.getElementById("character-image");
+const startScene = document.getElementById("start");
+const introScene = document.getElementById("intro");
+const exploreScene = document.getElementById("explore");
+const outroScene = document.getElementById("outro");
+const creditsScene = document.getElementById("credits");
 
-    const dialogueText =
-      document.getElementById("dialogue-text");
+const characterImage = document.getElementById("character-image");
+const dialogueText = document.getElementById("dialogue-text");
+const clickHint = document.getElementById("click-hint");
+const choiceButtons = document.getElementById("choice-buttons");
 
-    const clickHint =
-      document.getElementById("click-hint");
+const yesButton = document.getElementById("yes-button");
+const noButton = document.getElementById("no-button");
+const skipButton = document.getElementById("skip-button");
+const backButton = document.getElementById("back-button");
 
-    const choiceButtons =
-      document.getElementById("choice-buttons");
+/* ==============================
+   인트로 대사
+============================== */
 
-    const yesButton =
-      document.getElementById("yes-button");
+const dialogues = [
+  {
+    character: "charater/KakaoTalk_20261104_194403328_02.png",
+    text: "안녕... 나는 오동이라고 해..."
+  },
+  {
+    character: "charater/KakaoTalk_20261104_194403328_02.png",
+    text: "괴도식물단이 내가 모은 식물들을 훔쳐가 버렸어..."
+  },
+  {
+    character: "charater/KakaoTalk_20261104_194403328.png",
+    text: "내가 열심히 모은 식물들을...!"
+  }
+];
 
-    const noButton =
-      document.getElementById("no-button");
+let dialogueIndex = 0;
+let typingTimer = null;
+let isTyping = false;
+let currentFullText = "";
+let afterResponse = "";
 
-    const skipButton =
-      document.getElementById("skip-button");
+/* ==============================
+   인트로 대화 출력
+============================== */
 
-    const backButton =
-      document.getElementById("back-button");
+function showDialogue(dialogue) {
 
+  clearInterval(typingTimer);
 
-    const dialogues = [
-      {
-        character: "charater/KakaoTalk_20261104_194403328_02.png",
-        text: "안녕... 나는 오동이라고 해..."
-      },
+  choiceButtons.style.display = "none";
+  clickHint.style.display = "block";
 
-      {
-        character: "charater/KakaoTalk_20261104_194403328_02.png",
-        text: "괴도식물단이 내가 모은 식물들을 훔쳐가 버렸어..."
-      },
+  currentFullText = dialogue.text;
+  characterImage.src = dialogue.character;
+  dialogueText.textContent = "";
 
-      {
-        character: "charater/KakaoTalk_20261104_194403328.png",
-        text: "내가 열심히 모은 식물들을...!"
-      }
-    ];
+  let charIndex = 0;
+  isTyping = true;
 
+  typingTimer = setInterval(() => {
 
-    let dialogueIndex = 0;
-    let typingTimer = null;
-    let isTyping = false;
-    let currentFullText = "";
-    let afterResponse = "";
+    dialogueText.textContent += currentFullText.charAt(charIndex);
+    charIndex++;
 
-
-    document.getElementById("start-button")
-      .addEventListener("click", () => {
-
-        startScene.style.display = "none";
-        exploreScene.style.display = "none";
-        outroScene.style.display = "none";
-        creditsScene.style.display = "none";
-
-        introScene.style.display = "flex";
-
-        dialogueIndex = 0;
-        afterResponse = "";
-
-        showDialogue(dialogues[dialogueIndex]);
-
-      });
-
-
-    function showDialogue(dialogue) {
-
-      clearInterval(typingTimer);
-
-      choiceButtons.style.display = "none";
-      clickHint.style.display = "block";
-
-      currentFullText = dialogue.text;
-
-      characterImage.src = dialogue.character;
-      dialogueText.textContent = "";
-
-      let charIndex = 0;
-
-      isTyping = true;
-
-      typingTimer = setInterval(() => {
-
-        dialogueText.textContent +=
-          currentFullText.charAt(charIndex);
-
-        charIndex++;
-
-        if (charIndex >= currentFullText.length) {
-
-          clearInterval(typingTimer);
-          isTyping = false;
-
-        }
-
-      }, 55);
-
-    }
-
-
-    function showQuestion() {
-
+    if (charIndex >= currentFullText.length) {
       clearInterval(typingTimer);
       isTyping = false;
-
-      characterImage.src =
-        "charater/KakaoTalk_20261104_194403328_02.png";
-
-      currentFullText =
-        "그래서 말이야... 괜찮다면, 내 식물들을 찾아줄래...?";
-
-      dialogueText.textContent = currentFullText;
-
-      clickHint.style.display = "none";
-      choiceButtons.style.display = "flex";
-
     }
 
+  }, 55);
+}
 
-    function advanceDialogue() {
+function showQuestion() {
 
-      if (isTyping) {
+  clearInterval(typingTimer);
+  isTyping = false;
 
-        clearInterval(typingTimer);
+  characterImage.src =
+    "charater/KakaoTalk_20261104_194403328_02.png";
 
-        dialogueText.textContent = currentFullText;
+  currentFullText =
+    "그래서 말이야... 괜찮다면, 내 식물들을 찾아줄래...?";
 
-        isTyping = false;
+  dialogueText.textContent = currentFullText;
 
-        return;
+  clickHint.style.display = "none";
+  choiceButtons.style.display = "flex";
+}
 
-      }
+function advanceDialogue() {
 
-      if (afterResponse === "repeat-question") {
+  if (isTyping) {
+    clearInterval(typingTimer);
+    dialogueText.textContent = currentFullText;
+    isTyping = false;
+    return;
+  }
 
-        afterResponse = "";
+  if (afterResponse === "repeat-question") {
+    afterResponse = "";
+    showQuestion();
+    return;
+  }
 
-        showQuestion();
+  if (afterResponse === "go-explore") {
+    afterResponse = "";
+    goToExplore();
+    return;
+  }
 
-        return;
+  dialogueIndex++;
 
-      }
+  if (dialogueIndex < dialogues.length) {
+    showDialogue(dialogues[dialogueIndex]);
+  } else {
+    showQuestion();
+  }
+}
 
-      if (afterResponse === "go-explore") {
+/* ==============================
+   시작 버튼
+============================== */
 
-        afterResponse = "";
+document.getElementById("start-button")
+  .addEventListener("click", () => {
 
-        goToExplore();
+    startScene.style.display = "none";
+    exploreScene.style.display = "none";
+    outroScene.style.display = "none";
+    creditsScene.style.display = "none";
 
-        return;
+    introScene.style.display = "flex";
 
-      }
+    dialogueIndex = 0;
+    afterResponse = "";
 
-      dialogueIndex++;
+    showDialogue(dialogues[dialogueIndex]);
+  });
 
-      if (dialogueIndex < dialogues.length) {
+introScene.addEventListener("click", event => {
 
-        showDialogue(dialogues[dialogueIndex]);
+  if (event.target.closest("button")) return;
+  if (choiceButtons.style.display === "flex") return;
 
-      } else {
+  advanceDialogue();
+});
 
-        showQuestion();
+yesButton.addEventListener("click", () => {
 
-      }
+  afterResponse = "go-explore";
 
-    }
+  showDialogue({
+    character: "charater/KakaoTalk_20261104_194403328_01.png",
+    text: "그래? 정말 고마워...!"
+  });
+});
 
+noButton.addEventListener("click", () => {
 
-    introScene.addEventListener("click", (event) => {
+  afterResponse = "repeat-question";
 
-      if (event.target.closest("button")) return;
+  showDialogue({
+    character: "charater/KakaoTalk_20261104_194403328_02.png",
+    text: "진짜...? 한 번만 더 생각해주면 안 될까...?"
+  });
+});
 
-      if (choiceButtons.style.display === "flex") return;
+backButton.addEventListener("click", () => {
 
-      advanceDialogue();
+  clearInterval(typingTimer);
 
-    });
+  isTyping = false;
+  afterResponse = "";
+  dialogueIndex = 0;
 
+  introScene.style.display = "none";
+  exploreScene.style.display = "none";
 
-    yesButton.addEventListener("click", () => {
+  startScene.style.display = "flex";
+});
 
-      afterResponse = "go-explore";
+skipButton.addEventListener("click", goToExplore);
 
-      showDialogue({
+function goToExplore() {
 
-        character:
-          "charater/KakaoTalk_20261104_194403328_01.png",
+  clearInterval(typingTimer);
+  isTyping = false;
 
-        text: "그래? 정말 고마워...!"
+  startScene.style.display = "none";
+  introScene.style.display = "none";
 
-      });
+  exploreScene.style.display = "flex";
+}
 
-    });
+/* ==============================
+   아웃트로
+============================== */
 
+const outroCharacter =
+  document.getElementById("outro-character");
 
-    noButton.addEventListener("click", () => {
+const outroDialogueText =
+  document.getElementById("outro-dialogue-text");
 
-      afterResponse = "repeat-question";
+const outroClickHint =
+  document.getElementById("outro-click-hint");
 
-      showDialogue({
+const outroSkipButton =
+  document.getElementById("outro-skip");
 
-        character:
-          "charater/KakaoTalk_20261104_194403328_02.png",
+const outroDialogues = [
+  {
+    character: "charater/KakaoTalk_20261104_194403328_02.png",
+    text: "어...? 벌써 돌아온거야...?"
+  },
+  {
+    character: "charater/KakaoTalk_20261104_194403328_02.png",
+    text: "이건...내가 잃어버린 식물들이잖아?"
+  },
+  {
+    character: "charater/KakaoTalk_20261104_194403328_01.png",
+    text: "도와줘서 정말 고마워!"
+  },
+  {
+    character: "charater/KakaoTalk_20261104_194403328_01.png",
+    text: "덕분에 다시 행복해졌어...!"
+  }
+];
 
-        text: "진짜...? 한 번만 더 생각해주면 안 될까...?"
+let outroIndex = 0;
+let outroTypingTimer = null;
+let outroIsTyping = false;
+let outroFullText = "";
 
-      });
+function startOutro() {
 
-    });
+  clearInterval(typingTimer);
+  clearInterval(outroTypingTimer);
 
+  exploreScene.style.display = "none";
+  creditsScene.style.display = "none";
 
-    backButton.addEventListener("click", () => {
+  outroScene.style.display = "flex";
 
-      clearInterval(typingTimer);
+  outroIndex = 0;
 
-      isTyping = false;
-      afterResponse = "";
-      dialogueIndex = 0;
+  showOutroDialogue();
+}
 
-      introScene.style.display = "none";
-      exploreScene.style.display = "none";
+function showOutroDialogue() {
 
-      startScene.style.display = "flex";
+  clearInterval(outroTypingTimer);
 
-    });
+  if (outroIndex >= outroDialogues.length) {
+    showCredits();
+    return;
+  }
 
+  const dialogue = outroDialogues[outroIndex];
 
-    skipButton.addEventListener("click", goToExplore);
+  outroCharacter.src = dialogue.character;
+  outroFullText = dialogue.text;
+  outroDialogueText.textContent = "";
 
+  outroClickHint.style.display = "block";
 
-    function goToExplore() {
+  let charIndex = 0;
+  outroIsTyping = true;
 
-      clearInterval(typingTimer);
+  outroTypingTimer = setInterval(() => {
 
-      isTyping = false;
+    outroDialogueText.textContent +=
+      outroFullText.charAt(charIndex);
 
-      startScene.style.display = "none";
-      introScene.style.display = "none";
+    charIndex++;
 
-      exploreScene.style.display = "flex";
-
-    }
-
-
-    const outroCharacter =
-      document.getElementById("outro-character");
-
-    const outroDialogueText =
-      document.getElementById("outro-dialogue-text");
-
-    const outroClickHint =
-      document.getElementById("outro-click-hint");
-
-    const outroSkipButton =
-      document.getElementById("outro-skip");
-
-
-    const outroDialogues = [
-      {
-        character: "charater/KakaoTalk_20261104_194403328_02.png",
-        text: "어...? 벌써 돌아온거야...?"
-      },
-
-      {
-        character: "charater/KakaoTalk_20261104_194403328_02.png",
-        text: "이건...내가 도둑맞은 식물들이잖아?"
-      },
-
-      {
-        character: "charater/KakaoTalk_20261104_194403328_01.png",
-        text: "도와줘서 정말 고마워!"
-      },
-
-      {
-        character: "charater/KakaoTalk_20261104_194403328_01.png",
-        text: "덕분에 다시 행복해졌어...!"
-      }
-    ];
-
-
-    let outroIndex = 0;
-    let outroTypingTimer = null;
-    let outroIsTyping = false;
-    let outroFullText = "";
-
-
-    function startOutro() {
-
-      clearInterval(typingTimer);
+    if (charIndex >= outroFullText.length) {
       clearInterval(outroTypingTimer);
-
-      exploreScene.style.display = "none";
-      creditsScene.style.display = "none";
-
-      outroScene.style.display = "flex";
-
-      outroIndex = 0;
-
-      showOutroDialogue();
-
-    }
-
-
-    function showOutroDialogue() {
-
-      clearInterval(outroTypingTimer);
-
-      if (outroIndex >= outroDialogues.length) {
-
-        showCredits();
-
-        return;
-
-      }
-
-      const dialogue = outroDialogues[outroIndex];
-
-      outroCharacter.src = dialogue.character;
-
-      outroFullText = dialogue.text;
-
-      outroDialogueText.textContent = "";
-
-      outroClickHint.style.display = "block";
-
-      let charIndex = 0;
-
-      outroIsTyping = true;
-
-      outroTypingTimer = setInterval(() => {
-
-        outroDialogueText.textContent +=
-          outroFullText.charAt(charIndex);
-
-        charIndex++;
-
-        if (charIndex >= outroFullText.length) {
-
-          clearInterval(outroTypingTimer);
-
-          outroIsTyping = false;
-
-        }
-
-      }, 55);
-
-    }
-
-
-    function advanceOutro() {
-
-      if (outroIsTyping) {
-
-        clearInterval(outroTypingTimer);
-
-        outroDialogueText.textContent = outroFullText;
-
-        outroIsTyping = false;
-
-        return;
-
-      }
-
-      outroIndex++;
-
-      if (outroIndex < outroDialogues.length) {
-
-        showOutroDialogue();
-
-      } else {
-
-        showCredits();
-
-      }
-
-    }
-
-
-    outroScene.addEventListener("click", (event) => {
-
-      if (event.target.closest("button")) return;
-
-      advanceOutro();
-
-    });
-
-
-    outroSkipButton.addEventListener("click", (event) => {
-
-      event.stopPropagation();
-
-      showCredits();
-
-    });
-
-
-    function showCredits() {
-
-      clearInterval(outroTypingTimer);
-
       outroIsTyping = false;
-
-      outroScene.style.display = "none";
-
-      creditsScene.style.display = "flex";
-
     }
 
+  }, 55);
+}
 
-    document.getElementById("restart-button")
-      .addEventListener("click", () => {
+function advanceOutro() {
 
-        clearInterval(typingTimer);
-        clearInterval(outroTypingTimer);
+  if (outroIsTyping) {
 
-        isTyping = false;
-        outroIsTyping = false;
+    clearInterval(outroTypingTimer);
+    outroDialogueText.textContent = outroFullText;
+    outroIsTyping = false;
 
-        dialogueIndex = 0;
-        outroIndex = 0;
+    return;
+  }
 
-        afterResponse = "";
+  outroIndex++;
 
-        collectedPlants.clear();
+  if (outroIndex < outroDialogues.length) {
+    showOutroDialogue();
+  } else {
+    showCredits();
+  }
+}
 
-        endingPending = false;
+outroScene.addEventListener("click", event => {
 
-        updateCollectionCount();
+  if (event.target.closest("button")) return;
 
-        document.getElementById("plant-upload").value = "";
+  advanceOutro();
+});
 
-        document.getElementById("photo-preview").src = "";
+outroSkipButton.addEventListener("click", event => {
 
-        document.getElementById("photo-preview").style.display = "none";
+  event.stopPropagation();
+  showCredits();
+});
 
-        document.getElementById("recognition-result").textContent =
-          "사진을 선택해주세요.";
+function showCredits() {
 
-        closeAllPopups();
+  clearInterval(outroTypingTimer);
+  outroIsTyping = false;
 
-        creditsScene.style.display = "none";
-        outroScene.style.display = "none";
-        introScene.style.display = "none";
-        exploreScene.style.display = "none";
+  outroScene.style.display = "none";
+  creditsScene.style.display = "flex";
+}
 
-        startScene.style.display = "flex";
+/* ==============================
+   식물 데이터
+============================== */
 
-      });
+const plants = [
+  { id: "plant1", name: "구절초", image: "card/구절초.png" },
+  { id: "plant2", name: "노란색 국화", image: "card/국화(노랑).png" },
+  { id: "plant3", name: "분홍색 국화", image: "card/국화(분홍).png" },
+  { id: "plant4", name: "꿩의 비름", image: "card/꿩의 비름.png" },
+  { id: "plant5", name: "나비바늘꽃", image: "card/나비바늘꽃.png" },
+  { id: "plant6", name: "눈포아풀", image: "card/눈포아풀.png" },
+  { id: "plant7", name: "데이지", image: "card/데이지.png" },
+  { id: "plant8", name: "도라지", image: "card/도라지.png" },
+  { id: "plant9", name: "말발도리", image: "card/말발도리.png" },
+  { id: "plant10", name: "망초", image: "card/망초.png" },
+  { id: "plant11", name: "목향유", image: "card/목향유.png" },
+  { id: "plant12", name: "무늬사사", image: "card/무늬사사.png" },
+  { id: "plant13", name: "미국담쟁이덩쿨", image: "card/미국담쟁이덩쿨.png" },
+  { id: "plant14", name: "미국쑥부쟁이", image: "card/미국쑥부쟁이.png" },
+  { id: "plant15", name: "미국자리공", image: "card/미국자리공.png" },
+  { id: "plant16", name: "민들레", image: "card/민들레.png" },
+  { id: "plant17", name: "배풍등", image: "card/배풍등.png" },
+  { id: "plant18", name: "백봉국화", image: "card/백봉국화.png" },
+  { id: "plant19", name: "벽오동나무", image: "card/벽오동나무.png" },
+  { id: "plant20", name: "사철베고니아", image: "card/사철베고니아.png" },
+  { id: "plant21", name: "석산", image: "card/석산.png" },
+  { id: "plant22", name: "쇠무릎", image: "card/쇠무릎.png" },
+  { id: "plant23", name: "아주가", image: "card/아주가.png" },
+  { id: "plant24", name: "여뀌바늘", image: "card/여뀌바늘.png" },
+  { id: "plant25", name: "영산홍", image: "card/영산홍.png" },
+  { id: "plant26", name: "은행나무", image: "card/은행나무.png" },
+  { id: "plant27", name: "장미", image: "card/장미.png" },
+  { id: "plant28", name: "주목나무", image: "card/주목나무.png" },
+  { id: "plant29", name: "줄사철나무", image: "card/줄사철나무.png" },
+  { id: "plant30", name: "철쭉", image: "card/철쭉.png" },
+  { id: "plant31", name: "청화쑥부쟁이", image: "card/청화쑥부쟁이.png" },
+  { id: "plant32", name: "큰꽃으아리", image: "card/큰꽃으아리.png" },
+  { id: "plant33", name: "해국", image: "card/해국.png" },
+  { id: "plant34", name: "흰줄무늬지리대사초", image: "card/흰줄무늬지리대사초.png" }
+];
 
+/* ==============================
+   AI 모델
+============================== */
 
-    const plants = [
-      {
-        id: "plant1",
-        name: "구절초",
-        image: "card/구절초.png"
-      },
-      {
-        id: "plant2",
-        name: "노란색 국화",
-        image: "card/국화(노랑).png"
-      },
-      {
-        id: "plant3",
-        name: "분홍색 국화",
-        image: "card/국화(분홍).png"
-      },
-      {
-        id: "plant4",
-        name: "꿩의 비름",
-        image: "card/꿩의 비름.png"
-      },
-      {
-        id: "plant5",
-        name: "나비바늘꽃",
-        image: "card/나비바늘꽃.png"
-      },
-      {
-        id: "plant6",
-        name: "눈포아풀",
-        image: "card/눈포아풀.png"
-      },
-      {
-        id: "plant7",
-        name: "데이지",
-        image: "card/데이지.png"
-      },
-      {
-        id: "plant8",
-        name: "도라지",
-        image: "card/도라지.png"
-      },
-      {
-        id: "plant9",
-        name: "말발도리",
-        image: "card/말발도리.png"
-      },
-      {
-        id: "plant10",
-        name: "망초",
-        image: "card/망초.png"
-      },
-      {
-        id: "plant11",
-        name: "목향유",
-        image: "card/목향유.png"
-      },
-      {
-        id: "plant12",
-        name: "무늬사사",
-        image: "card/무늬사사.png"
-      },
-      {
-        id: "plant13",
-        name: "미국담쟁이덩쿨",
-        image: "card/미국담쟁이덩쿨.png"
-      },
-      {
-        id: "plant14",
-        name: "미국쑥부쟁이",
-        image: "card/미국쑥부쟁이.png"
-      },
-      {
-        id: "plant15",
-        name: "미국자리공",
-        image: "card/미국자리공.png"
-      },
-      {
-        id: "plant16",
-        name: "민들레",
-        image: "card/민들레.png"
-      },
-      {
-        id: "plant17",
-        name: "배풍등",
-        image: "card/배풍등.png"
-      },
-      {
-        id: "plant18",
-        name: "백봉국화",
-        image: "card/백봉국화.png"
-      },
-      {
-        id: "plant19",
-        name: "벽오동나무",
-        image: "card/벽오동나무.png"
-      },
-      {
-        id: "plant20",
-        name: "사철베고니아",
-        image: "card/사철베고니아.png"
-      },
-      {
-        id: "plant21",
-        name: "석산",
-        image: "card/석산.png"
-      },
-      {
-        id: "plant22",
-        name: "쇠무릎",
-        image: "card/쇠무릎.png"
-      },
-      {
-        id: "plant23",
-        name: "아주가",
-        image: "card/아주가.png"
-      },
-      {
-        id: "plant24",
-        name: "여뀌바늘",
-        image: "card/여뀌바늘.png"
-      },
-      {
-        id: "plant25",
-        name: "영산홍",
-        image: "card/영산홍.png"
-      },
-      {
-        id: "plant26",
-        name: "은행나무",
-        image: "card/은행나무.png"
-      },
-      {
-        id: "plant27",
-        name: "장미",
-        image: "card/장미.png"
-      },
-      {
-        id: "plant28",
-        name: "주목나무",
-        image: "card/주목나무.png"
-      },
-      {
-        id: "plant29",
-        name: "줄사철나무",
-        image: "card/줄사철나무.png"
-      },
-      {
-        id: "plant30",
-        name: "철쭉",
-        image: "card/철쭉.png"
-      },
-      {
-        id: "plant31",
-        name: "청화쑥부쟁이",
-        image: "card/청화쑥부쟁이.png"
-      },
-      {
-        id: "plant32",
-        name: "큰꽃으아리",
-        image: "card/큰꽃으아리.png"
-      },
-      {
-        id: "plant33",
-        name: "해국",
-        image: "card/해국.png"
-      },
-      {
-        id: "plant34",
-        name: "흰줄무늬지리대사초",
-        image: "card/흰줄무늬지리대사초.png"
-      }
-    ];
+let plantModel = null;
+let modelLoading = null;
 
+const MODEL_URL =
+  new URL("./my_model/", window.location.href).href;
 
-    let plantModel = null;
+async function loadPlantModel() {
 
-    const MODEL_URL = "./my_model/";
+  if (plantModel) return plantModel;
 
+  if (modelLoading) return modelLoading;
 
-    async function loadPlantModel() {
+  modelLoading = (async () => {
 
-      if (plantModel) return;
-
-      plantModel = await tmImage.load(
-        MODEL_URL + "model.json",
-        MODEL_URL + "metadata.json"
+    if (typeof tmImage === "undefined") {
+      throw new Error(
+        "Teachable Machine 라이브러리를 불러오지 못했습니다."
       );
-
     }
 
+    const modelUrl = MODEL_URL + "model.json";
+    const metadataUrl = MODEL_URL + "metadata.json";
 
-    const collectedPlants = new Set();
+    const modelResponse = await fetch(modelUrl);
 
-    let endingPending = false;
-
-
-    function updateCollectionCount() {
-
-      document.getElementById("collection-count").textContent =
-        collectedPlants.size + "/" + plants.length;
-
+    if (!modelResponse.ok) {
+      throw new Error(
+        "model.json 파일을 찾을 수 없습니다. HTTP " +
+        modelResponse.status
+      );
     }
 
+    const metadataResponse = await fetch(metadataUrl);
 
-    function closeAllPopups() {
-
-      document.querySelectorAll(".popup").forEach(popup => {
-
-        popup.style.display = "none";
-
-      });
-
-      document.getElementById("large-card").style.display = "none";
-
+    if (!metadataResponse.ok) {
+      throw new Error(
+        "metadata.json 파일을 찾을 수 없습니다. HTTP " +
+        metadataResponse.status
+      );
     }
 
+    const metadata = await metadataResponse.json();
 
-    function openPopup(id) {
-
-      closeAllPopups();
-
-      document.getElementById(id).style.display = "block";
-
+    if (!metadata.labels || metadata.labels.length === 0) {
+      throw new Error(
+        "metadata.json에 분류 항목이 없습니다."
+      );
     }
 
+    const loadedModel = await tmImage.load(
+      modelUrl,
+      metadataUrl
+    );
 
-    document.getElementById("dictionary-button")
-      .addEventListener("click", () => {
+    plantModel = loadedModel;
 
-        dictionaryPage = 0;
+    console.log("AI 모델 로딩 성공!");
+    console.log("분류 항목:", metadata.labels);
 
-        renderDictionary();
+    return plantModel;
 
-        openPopup("dictionary-popup");
+  })();
 
-      });
+  try {
+    return await modelLoading;
+  } catch (error) {
+    modelLoading = null;
+    plantModel = null;
+    throw error;
+  }
+}
 
+/* ==============================
+   수집 데이터
+============================== */
 
-    document.getElementById("help-button")
-      .addEventListener("click", () => {
+const collectedPlants = new Set();
 
-        openPopup("help-popup");
+let endingPending = false;
+let dictionaryPage = 0;
 
-      });
+function updateCollectionCount() {
 
+  document.getElementById("collection-count").textContent =
+    collectedPlants.size + "/" + plants.length;
+}
 
-    document.getElementById("camera-button")
-      .addEventListener("click", () => {
+/* ==============================
+   팝업 관리
+============================== */
 
-        openPopup("camera-popup");
+function closeAllPopups() {
 
-      });
+  document.querySelectorAll(".popup").forEach(popup => {
+    popup.style.display = "none";
+  });
 
+  document.getElementById("large-card").style.display = "none";
+}
 
-    document.getElementById("exit-button")
-      .addEventListener("click", () => {
+function openPopup(id) {
 
-        openPopup("exit-popup");
+  closeAllPopups();
 
-      });
+  document.getElementById(id).style.display = "block";
+}
 
+/* ==============================
+   도감
+============================== */
 
-    document.querySelectorAll(".popup-close").forEach(button => {
+document.getElementById("dictionary-button")
+  .addEventListener("click", () => {
 
-      button.addEventListener("click", () => {
+    dictionaryPage = 0;
+    renderDictionary();
+    openPopup("dictionary-popup");
+  });
 
-        closeAllPopups();
+function renderDictionary() {
 
-      });
+  const container =
+    document.getElementById("dictionary-cards");
 
+  container.innerHTML = "";
+
+  const collected = plants.filter(plant =>
+    collectedPlants.has(plant.id)
+  );
+
+  const cardsPerPage = 3;
+
+  const totalPages = Math.ceil(
+    collected.length / cardsPerPage
+  );
+
+  if (totalPages === 0) {
+    container.innerHTML =
+      "<p>아직 발견한 식물이 없어요!</p>";
+    return;
+  }
+
+  if (dictionaryPage >= totalPages) {
+    dictionaryPage = totalPages - 1;
+  }
+
+  const start = dictionaryPage * cardsPerPage;
+
+  const pagePlants = collected.slice(
+    start,
+    start + cardsPerPage
+  );
+
+  pagePlants.forEach(plant => {
+
+    const card = document.createElement("div");
+
+    card.className = "plant-card";
+
+    const image = document.createElement("img");
+    image.src = plant.image;
+    image.alt = plant.name;
+
+    const name = document.createElement("p");
+    name.textContent = plant.name;
+
+    card.appendChild(image);
+    card.appendChild(name);
+
+    card.addEventListener("click", () => {
+      showLargeCard(plant);
     });
 
+    container.appendChild(card);
+  });
 
-    let dictionaryPage = 0;
+  const pageControls = document.createElement("div");
 
+  pageControls.id = "dictionary-pagination";
 
-    function renderDictionary() {
+  pageControls.innerHTML = `
+    <button id="previous-page">이전</button>
+    <span>${dictionaryPage + 1} / ${totalPages}</span>
+    <button id="next-page">다음</button>
+  `;
 
-      const container =
-        document.getElementById("dictionary-cards");
+  container.appendChild(pageControls);
 
-      container.innerHTML = "";
+  document.getElementById("previous-page").disabled =
+    dictionaryPage === 0;
 
-      const collected = plants.filter(plant =>
-        collectedPlants.has(plant.id)
+  document.getElementById("next-page").disabled =
+    dictionaryPage === totalPages - 1;
+
+  document.getElementById("previous-page")
+    .addEventListener("click", () => {
+
+      dictionaryPage--;
+      renderDictionary();
+    });
+
+  document.getElementById("next-page")
+    .addEventListener("click", () => {
+
+      dictionaryPage++;
+      renderDictionary();
+    });
+}
+
+function showLargeCard(plant) {
+
+  document.getElementById("dictionary-popup").style.display =
+    "none";
+
+  document.getElementById("large-card-image").src =
+    plant.image;
+
+  document.getElementById("large-card-name").textContent =
+    plant.name;
+
+  document.getElementById("large-card").style.display =
+    "flex";
+}
+
+document.getElementById("large-card")
+  .addEventListener("click", () => {
+
+    document.getElementById("large-card").style.display =
+      "none";
+
+    if (endingPending) {
+      endingPending = false;
+      startOutro();
+      return;
+    }
+
+    renderDictionary();
+
+    document.getElementById("dictionary-popup").style.display =
+      "block";
+});
+
+/* ==============================
+   식물 획득
+============================== */
+
+function collectPlant(plantId) {
+
+  const plant = plants.find(item => item.id === plantId);
+
+  if (!plant) return;
+
+  const isNew = !collectedPlants.has(plantId);
+
+  collectedPlants.add(plantId);
+
+  updateCollectionCount();
+
+  if (isNew && collectedPlants.size === plants.length) {
+
+    endingPending = true;
+
+    alert("축하합니다! 모든 식물을 모았습니다!");
+  }
+
+  showLargeCard(plant);
+}
+
+/* ==============================
+   메뉴 버튼
+============================== */
+
+document.getElementById("help-button")
+  .addEventListener("click", () => {
+    openPopup("help-popup");
+  });
+
+document.getElementById("camera-button")
+  .addEventListener("click", () => {
+    openPopup("camera-popup");
+  });
+
+document.getElementById("exit-button")
+  .addEventListener("click", () => {
+    openPopup("exit-popup");
+  });
+
+document.querySelectorAll(".popup-close")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+      closeAllPopups();
+    });
+});
+
+/* ==============================
+   AI 사진 분류
+============================== */
+
+document.getElementById("plant-upload")
+  .addEventListener("change", async event => {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const result =
+      document.getElementById("recognition-result");
+
+    const preview =
+      document.getElementById("photo-preview");
+
+    if (!file.type.startsWith("image/")) {
+      result.textContent =
+        "이미지 파일을 선택해주세요.";
+      return;
+    }
+
+    const imageURL = URL.createObjectURL(file);
+
+    preview.src = imageURL;
+    preview.style.display = "block";
+
+    result.textContent =
+      "AI 모델을 준비하고 있습니다...";
+
+    try {
+
+      // 1. AI 모델 불러오기
+      await loadPlantModel();
+
+      // 2. 사진 로딩 완료 대기
+      await preview.decode();
+
+      result.textContent =
+        "AI가 식물을 분석하고 있습니다...";
+
+      // 3. 사진 분석
+      const predictions =
+        await plantModel.predict(preview);
+
+      if (!predictions || predictions.length === 0) {
+        throw new Error(
+          "AI 분석 결과가 비어 있습니다."
+        );
+      }
+
+      // 4. 확률순 정렬
+      predictions.sort((a, b) =>
+        b.probability - a.probability
       );
 
-      const cardsPerPage = 3;
+      const best = predictions[0];
 
-      const totalPages = Math.ceil(
-        collected.length / cardsPerPage
+      console.log("AI 분석 결과:", predictions);
+      console.log("가장 높은 예측:", best);
+
+      // 5. 식물 이름 비교
+      const foundPlant = plants.find(
+        plant =>
+          plant.name.trim() === best.className.trim()
       );
 
-      if (totalPages === 0) {
+      // 6. 인식 여부 확인
+      if (!foundPlant || best.probability < 0.65) {
 
-        container.innerHTML = "<p>아직 발견한 식물이 없어요!</p>";
+        result.textContent =
+          "식물을 정확하게 인식하지 못했어요. 다시 촬영해주세요.";
 
         return;
-
       }
 
-      if (dictionaryPage >= totalPages) {
+      // 7. 식물 획득
+      result.textContent =
+        foundPlant.name + " 발견! (" +
+        (best.probability * 100).toFixed(1) +
+        "%)";
 
-        dictionaryPage = totalPages - 1;
+      collectPlant(foundPlant.id);
 
-      }
+    } catch (error) {
 
-      const start = dictionaryPage * cardsPerPage;
+      console.error("AI 처리 오류:", error);
 
-      const pagePlants = collected.slice(
-        start,
-        start + cardsPerPage
-      );
+      result.textContent =
+        "AI 오류: " + error.message;
 
+    } finally {
 
-      pagePlants.forEach(plant => {
-
-        const card = document.createElement("div");
-
-        card.className = "plant-card";
-
-        card.innerHTML = `
-          <img src="${plant.image}" alt="${plant.name}">
-          <p>${plant.name}</p>
-        `;
-
-        card.addEventListener("click", () => {
-
-          showLargeCard(plant);
-
-        });
-
-        container.appendChild(card);
-
-      });
-
-
-      const pageControls = document.createElement("div");
-
-      pageControls.id = "dictionary-pagination";
-
-      pageControls.innerHTML = `
-        <button id="previous-page">이전</button>
-        <span>${dictionaryPage + 1} / ${totalPages}</span>
-        <button id="next-page">다음</button>
-      `;
-
-      container.appendChild(pageControls);
-
-
-      document.getElementById("previous-page")
-        .disabled = dictionaryPage === 0;
-
-      document.getElementById("next-page")
-        .disabled = dictionaryPage === totalPages - 1;
-
-
-      document.getElementById("previous-page")
-        .addEventListener("click", () => {
-
-          dictionaryPage--;
-
-          renderDictionary();
-
-        });
-
-
-      document.getElementById("next-page")
-        .addEventListener("click", () => {
-
-          dictionaryPage++;
-
-          renderDictionary();
-
-        });
+      URL.revokeObjectURL(imageURL);
 
     }
 
+  });
 
-    function showLargeCard(plant) {
+/* ==============================
+   종료 처리
+============================== */
 
-      document.getElementById("dictionary-popup").style.display = "none";
+function resetGame() {
 
-      document.getElementById("large-card-image").src = plant.image;
+  clearInterval(typingTimer);
+  clearInterval(outroTypingTimer);
 
-      document.getElementById("large-card-name").textContent =
-        plant.name;
+  isTyping = false;
+  outroIsTyping = false;
 
-      document.getElementById("large-card").style.display = "flex";
+  dialogueIndex = 0;
+  outroIndex = 0;
 
-    }
+  afterResponse = "";
 
+  collectedPlants.clear();
+  endingPending = false;
 
-    document.getElementById("large-card")
-      .addEventListener("click", () => {
+  updateCollectionCount();
 
-        document.getElementById("large-card").style.display = "none";
+  document.getElementById("plant-upload").value = "";
 
+  document.getElementById("photo-preview").src = "";
+  document.getElementById("photo-preview").style.display =
+    "none";
 
-        if (endingPending) {
+  document.getElementById("recognition-result").textContent =
+    "사진을 선택해주세요.";
 
-          endingPending = false;
+  closeAllPopups();
 
-          startOutro();
+  creditsScene.style.display = "none";
+  outroScene.style.display = "none";
+  introScene.style.display = "none";
+  exploreScene.style.display = "none";
 
-          return;
+  startScene.style.display = "flex";
+}
 
-        }
+document.getElementById("restart-button")
+  .addEventListener("click", resetGame);
 
-        renderDictionary();
+document.getElementById("exit-no")
+  .addEventListener("click", () => {
+    closeAllPopups();
+  });
 
-        document.getElementById("dictionary-popup").style.display = "block";
+document.getElementById("exit-yes")
+  .addEventListener("click", resetGame);
 
-      });
+/* ==============================
+   초기 설정
+============================== */
 
+updateCollectionCount();
 
-    // ==============================
-    // 식물 획득 처리
-    // ==============================
-
-    function collectPlant(plantId) {
-
-      const plant = plants.find(item => item.id === plantId);
-
-      if (!plant) return;
-
-      const isNew = !collectedPlants.has(plantId);
-
-      collectedPlants.add(plantId);
-
-      updateCollectionCount();
-
-      if (isNew && collectedPlants.size === plants.length) {
-
-        endingPending = true;
-
-        alert("축하합니다! 모든 식물을 모았습니다!");
-
-      }
-
-      showLargeCard(plant);
-
-    }
-
-
-    document.getElementById("plant-upload")
-      .addEventListener("change", async event => {
-
-        const file = event.target.files[0];
-
-        if (!file) return;
-
-
-        if (!file.type.startsWith("image/")) {
-
-          document.getElementById("recognition-result").textContent =
-            "이미지 파일을 선택해주세요.";
-
-          return;
-
-        }
-
-
-        const imageURL = URL.createObjectURL(file);
-
-        const preview = document.getElementById("photo-preview");
-
-        preview.src = imageURL;
-
-        preview.style.display = "block";
-
-
-        const result =
-          document.getElementById("recognition-result");
-
-        result.textContent = "AI가 식물을 분석하고 있습니다...";
-
-
-        try {
-
-          await loadPlantModel();
-
-          await preview.decode();
-
-          const predictions = await plantModel.predict(preview);
-
-          predictions.sort((a, b) =>
-            b.probability - a.probability
-          );
-
-          const best = predictions[0];
-
-          const foundPlant = plants.find(
-            plant => plant.name === best.className
-          );
-
-
-          if (!foundPlant || best.probability < 0.65) {
-
-            result.textContent =
-              "식물을 정확하게 인식하지 못했어요. 다시 촬영해주세요.";
-
-            return;
-
-          }
-
-
-          result.textContent =
-            foundPlant.name + " 발견!";
-
-          collectPlant(foundPlant.id);
-
-
-        } catch (error) {
-
-          console.error(error);
-
-          result.textContent =
-            "AI 모델을 불러오지 못했어요. 모델 파일을 확인해주세요.";
-
-        }
-
-      });
-
-
-    document.getElementById("exit-no")
-      .addEventListener("click", () => {
-
-        closeAllPopups();
-
-      });
-
-
-    document.getElementById("exit-yes")
-      .addEventListener("click", () => {
-
-        clearInterval(typingTimer);
-        clearInterval(outroTypingTimer);
-
-        isTyping = false;
-        outroIsTyping = false;
-
-        dialogueIndex = 0;
-        outroIndex = 0;
-
-        afterResponse = "";
-
-        collectedPlants.clear();
-
-        endingPending = false;
-
-        updateCollectionCount();
-
-        document.getElementById("plant-upload").value = "";
-
-        document.getElementById("photo-preview").src = "";
-
-        document.getElementById("photo-preview").style.display = "none";
-
-        document.getElementById("recognition-result").textContent =
-          "사진을 선택해주세요.";
-
-        closeAllPopups();
-
-        exploreScene.style.display = "none";
-        introScene.style.display = "none";
-        outroScene.style.display = "none";
-        creditsScene.style.display = "none";
-
-        startScene.style.display = "flex";
-
-      });
-
-
-    updateCollectionCount();
-
-  </script>
+</script>
 
 </body>
 </html>
-
