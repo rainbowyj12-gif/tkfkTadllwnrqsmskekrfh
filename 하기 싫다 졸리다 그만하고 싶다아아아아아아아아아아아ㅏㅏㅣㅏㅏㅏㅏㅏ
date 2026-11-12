@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,15 +13,16 @@
       src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/2610081905@hippie/hippie/hippie_히피체.woff2') format('woff2');
       font-weight: 400;
       font-display: swap;
-}  
-  @font-face {
-    font-family: 'IsYun';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
-    font-weight: normal;
-    font-display: swap;
-} 
+    }
 
-* {
+    @font-face {
+      font-family: 'IsYun';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff') format('woff');
+      font-weight: normal;
+      font-display: swap;
+    }
+
+    * {
       box-sizing: border-box;
     }
 
@@ -44,7 +46,9 @@
 
     #start,
     #intro,
-    #explore {
+    #explore,
+    #outro,
+    #credits {
       width: 100%;
       min-height: 100vh;
       background-color: #D5FAEA;
@@ -73,71 +77,80 @@
       padding: 24px;
       gap: 15px;
     }
-#outro {
-  display: none;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  gap: 15px;
-}
 
-#credits {
-  display: none;
-  min-height: 100vh;
-  background-color: #D5FAEA;
-  color: #10564D;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 15px;
-  padding: 30px;
-  font-family: "IsYun", sans-serif;
-}
+    #outro {
+      display: none;
+      position: relative;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      gap: 15px;
+    }
 
-#credits h1 {
-  font-family: "Hippie", sans-serif;
-}
+    #credits {
+      display: none;
+      color: #10564D;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 15px;
+      padding: 30px;
+      font-family: "IsYun", sans-serif;
+    }
 
-#credits button {
-  background-color: #10564D;
-  color: white;
-  padding: 12px 25px;
-  border-radius: 10px;
-  font-size: 18px;
-}
+    #credits h1 {
+      font-family: "Hippie", sans-serif;
+    }
 
-#outro-character {
-  max-width: 45vw;
-  max-height: 45vh;
-  object-fit: contain;
-}
+    #credits button {
+      background-color: #10564D;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 10px;
+      font-size: 18px;
+    }
 
-#outro-dialogue-box {
-  width: 90%;
-  max-width: 900px;
-  text-align: center;
-  padding: 10px;
-}
+    #outro-character {
+      max-width: 45vw;
+      max-height: 45vh;
+      object-fit: contain;
+    }
 
-#outro-dialogue-text {
-  font-family: "Hippie", sans-serif;
-  font-size: 50px;
-  font-weight: bold;
-  color: #10564D;
-  line-height: 1.6;
-  margin: 0;
-  word-break: keep-all;
-}
+    #outro-dialogue-box {
+      width: 90%;
+      max-width: 900px;
+      text-align: center;
+      padding: 10px;
+    }
 
-#outro-click-hint {
-  font-family: "IsYun", sans-serif;
-  font-size: 16px;
-  color: #78909C;
-  margin: 5px 0;
-}
+    #outro-dialogue-text {
+      font-family: "Hippie", sans-serif;
+      font-size: 50px;
+      font-weight: bold;
+      color: #10564D;
+      line-height: 1.6;
+      margin: 0;
+      word-break: keep-all;
+    }
+
+    #outro-click-hint {
+      font-family: "IsYun", sans-serif;
+      font-size: 16px;
+      color: #78909C;
+      margin: 5px 0;
+    }
+
+    #outro-skip {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    #outro-skip img {
+      width: 55px;
+    }
 
     #character-image {
       max-width: 45vw;
@@ -219,17 +232,18 @@
       #dialogue-text {
         font-size: 23px;
       }
-    #outro-dialogue-text {
-  font-size: 23px;
-}
 
-#outro-click-hint {
-  font-size: 14px;
-}
+      #outro-dialogue-text {
+        font-size: 23px;
+      }
 
-#outro-character {
-  max-width: 75vw;
-}
+      #outro-click-hint {
+        font-size: 14px;
+      }
+
+      #outro-character {
+        max-width: 75vw;
+      }
 
       #click-hint {
         font-size: 14px;
@@ -239,45 +253,44 @@
         max-width: 75vw;
       }
     }
-      
-#dictionary-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-}
 
-.plant-card {
-  cursor: pointer;
-  text-align: center;
-}
+    #dictionary-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
 
-.plant-card img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 12px;
-}
+    .plant-card {
+      cursor: pointer;
+      text-align: center;
+    }
 
-#dictionary-pagination {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  margin-top: 20px;
-}
+    .plant-card img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 12px;
+    }
 
-#dictionary-pagination button {
-  padding: 8px 14px;
-  background: #D5FAEA;
-  border-radius: 8px;
-}
+    #dictionary-pagination {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
 
-#dictionary-pagination button:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
+    #dictionary-pagination button {
+      padding: 8px 14px;
+      background: #D5FAEA;
+      border-radius: 8px;
+    }
 
+    #dictionary-pagination button:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
   </style>
 </head>
 
@@ -290,6 +303,7 @@
       <img src="시작하기.png" alt="시작하기">
     </button>
   </section>
+
 
   <section id="intro">
 
@@ -326,163 +340,180 @@
     </div>
 
   </section>
-<section id="outro">
 
-  <img
-    id="outro-character"
-    src="KakaoTalk_20261104_194403328_02.png"
-    alt="오동이"
-  >
 
-  <div id="outro-dialogue-box">
-    <p id="outro-dialogue-text"></p>
-  </div>
+  <section id="outro">
 
-  <p id="outro-click-hint">화면을 클릭하세요</p>
+    <button id="outro-skip">
+      <img src="건너뛰기.png" alt="건너뛰기">
+    </button>
 
+    <img
+      id="outro-character"
+      src="KakaoTalk_20261104_194403328_02.png"
+      alt="오동이"
+    >
+
+    <div id="outro-dialogue-box">
+      <p id="outro-dialogue-text"></p>
+    </div>
+
+    <p id="outro-click-hint">화면을 클릭하세요</p>
+
+  </section>
+
+
+  <section id="credits">
+
+    <h1>THE END</h1>
+
+    <h2>팀원</h2>
+
+    <p>2414 이혜민</p>
+    <p>2416 임연우</p>
+    <p>2417 전예지</p>
+    <p>2422 한유은</p>
+    <p>2423 황혜나</p>
+    <p>AI 모델: Teachable Machine</p>
+    <p>특별출연: 오동이(우리 학교 동상)</p>
+
+    <p>플레이해 주셔서 감사합니다!</p>
+
+    <button id="restart-button">
+      <img src="다시하기.png" alt="다시하기">
+    </button>
 </section>
 
 
-<section id="credits">
+  <section id="explore">
 
-  <h1>THE END</h1>
+    <aside id="side-menu">
 
-  <h2>팀원</h2>
-
-  <p>2414 이혜민</p>
-  <p>2416 임연우</p>
-  <p>2417 전예지</p>
-  <p>2422 한유은</p>
-  <p>2423 황혜나</p>
-  <p>AI 모델: Teachable Machine</p>
-  <p>특별출연: 오동이(우리 학교 동상)</p>
-
-  <p>플레이해 주셔서 감사합니다!</p>
-
-  <button id="restart-button">
-    처음으로
-  </button>
-
-</section>
-<section id="explore">
-
-  <aside id="side-menu">
-
-    <button class="menu-button" id="dictionary-button">
-      <img src="사전.png" alt="사전">
-    </button>
-
-    <p id="collection-count">0/5</p>
-
-    <button class="menu-button" id="help-button">
-      <img src="방법.png" alt="사용법">
-    </button>
-
-    <button class="menu-button" id="camera-button">
-      <img src="카메라.png" alt="카메라">
-    </button>
-
-    <button class="menu-button" id="exit-button">
-      <img src="취소.png" alt="종료">
-    </button>
-
-  </aside>
-
-
-  <div id="map-area">
-
-    <div class="popup" id="dictionary-popup">
-
-      <button class="popup-close" data-close="dictionary-popup">
-        <img src="뒤로가기.png" alt="닫기">
+      <button class="menu-button" id="dictionary-button">
+        <img src="사전.png" alt="사전">
       </button>
 
-      <h2>식물 도감</h2>
-  
-      <div id="dictionary-cards"></div>
+      <p id="collection-count">0/34</p>
 
-    </div>
-
-
-    <div class="popup" id="help-popup">
-
-      <button class="popup-close" data-close="help-popup">
-        <img src="뒤로가기.png" alt="닫기">
+      <button class="menu-button" id="help-button">
+        <img src="방법.png" alt="사용법">
       </button>
 
-      <h2>게임 사용법</h2>
-
-      <p><img src="사전.png" alt="사전">: 지금까지 수집한 식물 카드를 확인합니다.</p>
-      <p><img src="카메라.png" alt="카메라">: 식물 사진을 촬영하거나 업로드할 수 있습니다.</p>
-      <p><img src="취소.png" alt="닫기">: 시작 화면으로 돌아갑니다. 모든 기록은 초기화됩니다.</p>
-      <p>식물이 인식되면 해당 식물 카드를 획득할 수 있습니다.</p>
-      <p>중복된 사진은 개수로 인정되지 않습니다.<p>
-
-    </div>
-
-
-    <div class="popup" id="camera-popup">
-
-      <button class="popup-close" data-close="camera-popup">
-        <img src="뒤로가기.png" alt="닫기">
+      <button class="menu-button" id="camera-button">
+        <img src="카메라.png" alt="카메라">
       </button>
 
-      <h2>식물 발견!</h2>
-
-      <p>식물 사진을 촬영하거나 업로드해주세요.</p>
-
-      <input
-        type="file"
-        id="plant-upload"
-        accept="image/*"
-        capture="environment"
-      >
-
-      <img id="photo-preview" alt="업로드한 식물 사진">
-
-      <p id="recognition-result">사진을 선택해 주세요.</p>
-
-    </div>
-
-
-    <div class="popup" id="exit-popup">
-
-      <button class="popup-close" data-close="exit-popup">
-        <img src="취소.png" alt="닫기">
+      <button class="menu-button" id="exit-button">
+        <img src="취소.png" alt="종료">
       </button>
 
-      <h2>게임 종료</h2>
+    </aside>
 
-      <p id="exit-question">
-        정말로 나가시겠습니까?
-      </p>
 
-      <div class="confirm-buttons">
+    <div id="map-area">
 
-        <button id="exit-yes">예</button>
+      <div class="popup" id="dictionary-popup">
 
-        <button id="exit-no">아니요</button>
+        <button class="popup-close" data-close="dictionary-popup">
+          <img src="뒤로가기.png" alt="닫기">
+        </button>
+
+        <h2>식물 도감</h2>
+
+        <div id="dictionary-cards"></div>
+
+      </div>
+
+
+      <div class="popup" id="help-popup">
+
+        <button class="popup-close" data-close="help-popup">
+          <img src="뒤로가기.png" alt="닫기">
+        </button>
+
+        <h2>게임 사용법</h2>
+
+        <p><img src="사전.png" alt="사전">: 지금까지 수집한 식물 카드를 확인합니다.</p>
+        <p><img src="카메라.png" alt="카메라">: 식물 사진을 촬영하거나 업로드할 수 있습니다.</p>
+        <p><img src="취소.png" alt="닫기">: 시작 화면으로 돌아갑니다. 모든 기록은 초기화됩니다.</p>
+        <p>식물이 인식되면 해당 식물 카드를 획득할 수 있습니다.</p>
+        <p>중복된 사진은 개수로 인정되지 않습니다.</p>
+        <p>해당 게임은 식물 분류에 AI를 사용하므로, 결과가 틀릴 수 있습니다.</p>
+
+      </div>
+
+
+      <div class="popup" id="camera-popup">
+
+        <button class="popup-close" data-close="camera-popup">
+          <img src="뒤로가기.png" alt="닫기">
+        </button>
+
+        <h2>식물 발견!</h2>
+
+        <p>식물 사진을 촬영하거나 업로드해주세요.</p>
+
+        <input
+          type="file"
+          id="plant-upload"
+          accept="image/*"
+          capture="environment"
+        >
+
+        <img id="photo-preview" alt="업로드한 식물 사진">
+
+        <p id="recognition-result">사진을 선택해 주세요.</p>
+
+      </div>
+
+
+      <div class="popup" id="exit-popup">
+
+        <button class="popup-close" data-close="exit-popup">
+          <img src="취소.png" alt="닫기">
+        </button>
+
+        <h2>게임 종료</h2>
+
+        <p id="exit-question">
+          정말로 나가시겠습니까?
+        </p>
+
+        <div class="confirm-buttons">
+
+          <button id="exit-yes">예</button>
+
+          <button id="exit-no">아니요</button>
+
+        </div>
+
+      </div>
+
+
+      <div id="large-card">
+
+        <img id="large-card-image" src="" alt="식물 카드">
+
+        <h2 id="large-card-name"></h2>
 
       </div>
 
     </div>
 
+  </section>
 
-     <div id="large-card">
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
 
-      <img id="large-card-image" src="" alt="식물 카드">
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
-      <h2 id="large-card-name"></h2>
 
-    </div>
+  <script>
 
-  </div>
-
-</section>
-    <script>
     const startScene = document.getElementById("start");
     const introScene = document.getElementById("intro");
     const exploreScene = document.getElementById("explore");
+    const outroScene = document.getElementById("outro");
+    const creditsScene = document.getElementById("credits");
 
     const characterImage =
       document.getElementById("character-image");
@@ -539,12 +570,16 @@
 
         startScene.style.display = "none";
         exploreScene.style.display = "none";
+        outroScene.style.display = "none";
+        creditsScene.style.display = "none";
+
         introScene.style.display = "flex";
 
         dialogueIndex = 0;
         afterResponse = "";
 
         showDialogue(dialogues[dialogueIndex]);
+
       });
 
 
@@ -579,6 +614,7 @@
         }
 
       }, 55);
+
     }
 
 
@@ -597,6 +633,7 @@
 
       clickHint.style.display = "none";
       choiceButtons.style.display = "flex";
+
     }
 
 
@@ -611,6 +648,7 @@
         isTyping = false;
 
         return;
+
       }
 
       if (afterResponse === "repeat-question") {
@@ -620,6 +658,7 @@
         showQuestion();
 
         return;
+
       }
 
       if (afterResponse === "go-explore") {
@@ -629,6 +668,7 @@
         goToExplore();
 
         return;
+
       }
 
       dialogueIndex++;
@@ -642,8 +682,8 @@
         showQuestion();
 
       }
-    }
 
+    }
 
 
     introScene.addEventListener("click", (event) => {
@@ -655,7 +695,6 @@
       advanceDialogue();
 
     });
-
 
 
     yesButton.addEventListener("click", () => {
@@ -700,12 +739,14 @@
 
       introScene.style.display = "none";
       exploreScene.style.display = "none";
+
       startScene.style.display = "flex";
 
     });
 
 
     skipButton.addEventListener("click", goToExplore);
+
 
     function goToExplore() {
 
@@ -715,486 +756,791 @@
 
       startScene.style.display = "none";
       introScene.style.display = "none";
+
       exploreScene.style.display = "flex";
 
     }
 
-const plants = [
-  {
-    id: "plant1",
-    name: "구절초",
-    image: "구절초.png"
-  },
-  {
-    id: "plant2",
-    name: "노란색 국화",
-    image: "국화(노랑).png"
-  },
-  {
-    id: "plant3",
-    name: "분홍색 국화",
-    image: "국화(분홍).png"
-  },
-  {
-    id: "plant4",
-    name: "꿩의 비름",
-    image: "꿩의 비름.png"
-  },
-  {
-    id: "plant5",
-    name: "나비바늘꽃",
-    image: "나비바늘꽃.png"
-  },
- {
-    id: "plant6",
-    name: "눈포아풀",
-    image: "눈포아풀.png"
-  },
- {
-    id: "plant7",
-    name: "데이지",
-    image: "데이지.png"
-  },
- {
-    id: "plant8",
-    name: "도라지",
-    image: "도라지.png"
-  },
- {
-    id: "plant9",
-    name: "말발도리",
-    image: "말발도리.png"
-  },
- {
-    id: "plant10",
-    name: "망초",
-    image: "망초.png"
-  },
- {
-    id: "plant11",
-    name: "목향유",
-    image: "목향유.png"
-  },
- {
-    id: "plant12",
-    name: "무늬사사",
-    image: "무늬사사.png"
-  },
- {
-    id: "plant13",
-    name: "미국담쟁이덩쿨",
-    image: "미국담쟁이덩쿨.png"
-  },
- {
-    id: "plant14",
-    name: "미국쑥부쟁이",
-    image: "미국쑥부쟁이.png"
-  },
- {
-    id: "plant15",
-    name: "미국자리공",
-    image: "미국자리공.png"
-  },
- {
-    id: "plant16",
-    name: "민들레",
-    image: "민들레.png"
-  },
- {
-    id: "plant17",
-    name: "배풍등",
-    image: "배풍등.png"
-  },
- {
-    id: "plant18",
-    name: "백봉국화",
-    image: "백봉국화.png"
-  },
- {
-    id: "plant19",
-    name: "벽오동나무",
-    image: "벽오동나무.png"
-  },
- {
-    id: "plant20",
-    name: "사철베고니아",
-    image: "사철베고니아.png"
-  },
- {
-    id: "plant21",
-    name: "석산",
-    image: "석산.png"
-  },
- {
-    id: "plant22",
-    name: "쇠무릎",
-    image: "쇠무릎.png"
-  },
- {
-    id: "plant23",
-    name: "아주가",
-    image: "아주가.png"
-  },
- {
-    id: "plant24",
-    name: "여뀌바늘",
-    image: "여뀌바늘.png"
-  },
- {
-    id: "plant25",
-    name: "영산홍",
-    image: "영산홍.png"
-  },
- {
-    id: "plant26",
-    name: "은행나무",
-    image: "은행나무.png"
-  },
- {
-    id: "plant27",
-    name: "장미",
-    image: "장미.png"
-  },
- {
-    id: "plant28",
-    name: "주목나무",
-    image: "주목나무.png"
-  },
- {
-    id: "plant29",
-    name: "줄사철나무",
-    image: "줄사철나무.png"
-  },
- {
-    id: "plant30",
-    name: "철쭉",
-    image: "철쭉.png"
-  },
- {
-    id: "plant31",
-    name: "청화쑥부쟁이",
-    image: "청화쑥부쟁이.png"
-  },
- {
-    id: "plant32",
-    name: "큰꽃으아리",
-    image: "큰꽃으아리.png"
-  },
- {
-    id: "plant33",
-    name: "해국",
-    image: "해국.png"
-  },
- {
-    id: "plant34",
-    name: "흰줄무늬지리대사초",
-    image: "흰줄무늬지리대사초.png"
-  }
-];
-
-let plantModel = null;
-
-const MODEL_URL = "./my_model/";
-
-async function loadPlantModel() {
-  if (plantModel) return;
-
-  plantModel = await tmImage.load(
-    MODEL_URL + "model.json",
-    MODEL_URL + "metadata.json"
-  );
-}
-
-const collectedPlants = new Set();
-
-
-function updateCollectionCount() {
-  document.getElementById("collection-count").textContent =
-    collectedPlants.size + "/" + plants.length;
-}
-
-
-function closeAllPopups() {
-  document.querySelectorAll(".popup").forEach(popup => {
-    popup.style.display = "none";
-  });
-
-  document.getElementById("large-card").style.display = "none";
-}
-
-
-function openPopup(id) {
-  closeAllPopups();
-  document.getElementById(id).style.display = "block";
-}
-
-
-document.getElementById("dictionary-button")
-  .addEventListener("click", () => {
-    dictionaryPage = 0;
-    renderDictionary();
-    openPopup("dictionary-popup");
-  });
-
-
-document.getElementById("help-button")
-  .addEventListener("click", () => {
-    openPopup("help-popup");
-  });
-
-
-document.getElementById("camera-button")
-  .addEventListener("click", () => {
-    openPopup("camera-popup");
-  });
-
-
-document.getElementById("exit-button")
-  .addEventListener("click", () => {
-    openPopup("exit-popup");
-  });
-
-
-document.querySelectorAll(".popup-close").forEach(button => {
-
-  button.addEventListener("click", () => {
-    closeAllPopups();
-  });
-
-});
-
-
-
-let dictionaryPage = 0;
-
-function renderDictionary() {
-  const container =
-    document.getElementById("dictionary-cards");
-
-  container.innerHTML = "";
-
-  const collected = plants.filter(plant =>
-    collectedPlants.has(plant.id)
-  );
-
-  const cardsPerPage = 3;
-  const totalPages = Math.ceil(
-    collected.length / cardsPerPage
-  );
-
-  if (totalPages === 0) {
-    container.innerHTML = "<p>아직 발견한 식물이 없어요!</p>";
-    return;
-  }
 
-  if (dictionaryPage >= totalPages) {
-    dictionaryPage = totalPages - 1;
-  }
+    const outroCharacter =
+      document.getElementById("outro-character");
 
-  const start = dictionaryPage * cardsPerPage;
-  const pagePlants = collected.slice(
-    start,
-    start + cardsPerPage
-  );
+    const outroDialogueText =
+      document.getElementById("outro-dialogue-text");
 
-  pagePlants.forEach(plant => {
-    const card = document.createElement("div");
-    card.className = "plant-card";
+    const outroClickHint =
+      document.getElementById("outro-click-hint");
 
-    card.innerHTML = `
-      <img src="${plant.image}" alt="${plant.name}">
-      <p>${plant.name}</p>
-    `;
+    const outroSkipButton =
+      document.getElementById("outro-skip");
 
-    card.addEventListener("click", () => {
-      showLargeCard(plant);
-    });
 
-    container.appendChild(card);
-  });
+    const outroDialogues = [
+      {
+        character: "KakaoTalk_20261104_194403328_02.png",
+        text: "어...? 벌써 돌아온거야...?"
+      },
 
-  const pageControls = document.createElement("div");
-  pageControls.id = "dictionary-pagination";
+      {
+        character: "KakaoTalk_20261104_194403328_02.png",
+        text: "이건...내가 잃어버린 식물들이잖아?"
+      },
 
-  pageControls.innerHTML = `
-    <button id="previous-page">이전</button>
-    <span>${dictionaryPage + 1} / ${totalPages}</span>
-    <button id="next-page">다음</button>
-  `;
+      {
+        character: "KakaoTalk_20261104_194403328.png",
+        text: "도와줘서 정말 고마워!"
+      },
 
-  container.appendChild(pageControls);
+      {
+        character: "KakaoTalk_20261104_194403328.png",
+        text: "덕분에 다시 행복해졌어...!"
+      }
+    ];
 
-  document.getElementById("previous-page")
-    .disabled = dictionaryPage === 0;
 
-  document.getElementById("next-page")
-    .disabled = dictionaryPage === totalPages - 1;
+    let outroIndex = 0;
+    let outroTypingTimer = null;
+    let outroIsTyping = false;
+    let outroFullText = "";
 
-  document.getElementById("previous-page")
-    .addEventListener("click", () => {
-      dictionaryPage--;
-      renderDictionary();
-    });
 
-  document.getElementById("next-page")
-    .addEventListener("click", () => {
-      dictionaryPage++;
-      renderDictionary();
-    });
-}
+    function startOutro() {
 
+      clearInterval(typingTimer);
+      clearInterval(outroTypingTimer);
 
-function showLargeCard(plant) {
+      exploreScene.style.display = "none";
+      creditsScene.style.display = "none";
 
-  document.getElementById("dictionary-popup").style.display = "none";
+      outroScene.style.display = "flex";
 
-  document.getElementById("large-card-image").src = plant.image;
+      outroIndex = 0;
 
-  document.getElementById("large-card-name").textContent =
-    plant.name;
+      showOutroDialogue();
 
-  document.getElementById("large-card").style.display = "flex";
-
-}
-
-
-document.getElementById("large-card")
-  .addEventListener("click", () => {
-
-    document.getElementById("large-card").style.display = "none";
-
-    renderDictionary();
-
-    document.getElementById("dictionary-popup").style.display = "block";
-
-  });
-
-
-function collectPlant(plantId) {
-
-  const plant = plants.find(item => item.id === plantId);
-
-  if (!plant) return;
-
-  collectedPlants.add(plantId);
-
-  updateCollectionCount();
-
-  showLargeCard(plant);
-
-}
-
-
-document.getElementById("plant-upload")
-  .addEventListener("change", async event => {
-
-    const file = event.target.files[0];
-
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-      document.getElementById("recognition-result").textContent =
-        "이미지 파일을 선택해주세요.";
-      return;
     }
 
-    const imageURL = URL.createObjectURL(file);
 
-    const preview = document.getElementById("photo-preview");
+    function showOutroDialogue() {
 
-    preview.src = imageURL;
-    preview.style.display = "block";
+      clearInterval(outroTypingTimer);
 
-    const result = document.getElementById("recognition-result");
+      if (outroIndex >= outroDialogues.length) {
 
-    result.textContent = "AI가 식물을 분석하고 있습니다...";
+        showCredits();
 
-    try {
-      await loadPlantModel();
-
-      await preview.decode();
-
-      const predictions = await plantModel.predict(preview);
-
-      predictions.sort((a, b) =>
-        b.probability - a.probability
-      );
-
-      const best = predictions[0];
-
-      const foundPlant = plants.find(
-        plant => plant.name === best.className
-      );
-
-
-      if (!foundPlant || best.probability < 0.65) {
-        result.textContent =
-          "식물을 정확하게 인식하지 못했어요. 다시 촬영해주세요.";
         return;
+
       }
 
-      result.textContent =
-        foundPlant.name + " 발견!";
+      const dialogue = outroDialogues[outroIndex];
 
-      collectPlant(foundPlant.id);
+      outroCharacter.src = dialogue.character;
 
-    } catch (error) {
+      outroFullText = dialogue.text;
 
-      console.error(error);
+      outroDialogueText.textContent = "";
 
-      result.textContent =
-        "AI 모델을 불러오지 못했어요. 모델 파일을 확인해주세요.";
+      outroClickHint.style.display = "block";
+
+      let charIndex = 0;
+
+      outroIsTyping = true;
+
+      outroTypingTimer = setInterval(() => {
+
+        outroDialogueText.textContent +=
+          outroFullText.charAt(charIndex);
+
+        charIndex++;
+
+        if (charIndex >= outroFullText.length) {
+
+          clearInterval(outroTypingTimer);
+
+          outroIsTyping = false;
+
+        }
+
+      }, 55);
 
     }
 
-});
+
+    function advanceOutro() {
+
+      if (outroIsTyping) {
+
+        clearInterval(outroTypingTimer);
+
+        outroDialogueText.textContent = outroFullText;
+
+        outroIsTyping = false;
+
+        return;
+
+      }
+
+      outroIndex++;
+
+      if (outroIndex < outroDialogues.length) {
+
+        showOutroDialogue();
+
+      } else {
+
+        showCredits();
+
+      }
+
+    }
 
 
-document.getElementById("exit-no")
-  .addEventListener("click", () => {
+    outroScene.addEventListener("click", (event) => {
 
-    closeAllPopups();
+      if (event.target.closest("button")) return;
+
+      advanceOutro();
+
+    });
 
 
-  });
+
+    outroSkipButton.addEventListener("click", (event) => {
+
+      event.stopPropagation();
+
+      showCredits();
+
+    });
 
 
-document.getElementById("exit-yes")
-  .addEventListener("click", () => {
 
-    clearInterval(typingTimer);
+    function showCredits() {
 
-    isTyping = false;
-    dialogueIndex = 0;
-    afterResponse = "";
+      clearInterval(outroTypingTimer);
 
-    collectedPlants.clear();
+      outroIsTyping = false;
+
+      outroScene.style.display = "none";
+
+      creditsScene.style.display = "flex";
+
+    }
+
+
+
+    document.getElementById("restart-button")
+      .addEventListener("click", () => {
+
+        clearInterval(typingTimer);
+        clearInterval(outroTypingTimer);
+
+        isTyping = false;
+        outroIsTyping = false;
+
+        dialogueIndex = 0;
+        outroIndex = 0;
+
+        afterResponse = "";
+
+        collectedPlants.clear();
+
+        endingPending = false;
+
+        updateCollectionCount();
+
+        document.getElementById("plant-upload").value = "";
+
+        document.getElementById("photo-preview").src = "";
+
+        document.getElementById("photo-preview").style.display = "none";
+
+        document.getElementById("recognition-result").textContent =
+          "사진을 선택해주세요.";
+
+        closeAllPopups();
+
+        creditsScene.style.display = "none";
+        outroScene.style.display = "none";
+        introScene.style.display = "none";
+        exploreScene.style.display = "none";
+
+        startScene.style.display = "flex";
+
+      });
+
+    const plants = [
+      {
+        id: "plant1",
+        name: "구절초",
+        image: "구절초.png"
+      },
+      {
+        id: "plant2",
+        name: "노란색 국화",
+        image: "국화(노랑).png"
+      },
+      {
+        id: "plant3",
+        name: "분홍색 국화",
+        image: "국화(분홍).png"
+      },
+      {
+        id: "plant4",
+        name: "꿩의 비름",
+        image: "꿩의 비름.png"
+      },
+      {
+        id: "plant5",
+        name: "나비바늘꽃",
+        image: "나비바늘꽃.png"
+      },
+      {
+        id: "plant6",
+        name: "눈포아풀",
+        image: "눈포아풀.png"
+      },
+      {
+        id: "plant7",
+        name: "데이지",
+        image: "데이지.png"
+      },
+      {
+        id: "plant8",
+        name: "도라지",
+        image: "도라지.png"
+      },
+      {
+        id: "plant9",
+        name: "말발도리",
+        image: "말발도리.png"
+      },
+      {
+        id: "plant10",
+        name: "망초",
+        image: "망초.png"
+      },
+      {
+        id: "plant11",
+        name: "목향유",
+        image: "목향유.png"
+      },
+      {
+        id: "plant12",
+        name: "무늬사사",
+        image: "무늬사사.png"
+      },
+      {
+        id: "plant13",
+        name: "미국담쟁이덩쿨",
+        image: "미국담쟁이덩쿨.png"
+      },
+      {
+        id: "plant14",
+        name: "미국쑥부쟁이",
+        image: "미국쑥부쟁이.png"
+      },
+      {
+        id: "plant15",
+        name: "미국자리공",
+        image: "미국자리공.png"
+      },
+      {
+        id: "plant16",
+        name: "민들레",
+        image: "민들레.png"
+      },
+      {
+        id: "plant17",
+        name: "배풍등",
+        image: "배풍등.png"
+      },
+      {
+        id: "plant18",
+        name: "백봉국화",
+        image: "백봉국화.png"
+      },
+      {
+        id: "plant19",
+        name: "벽오동나무",
+        image: "벽오동나무.png"
+      },
+      {
+        id: "plant20",
+        name: "사철베고니아",
+        image: "사철베고니아.png"
+      },
+      {
+        id: "plant21",
+        name: "석산",
+        image: "석산.png"
+      },
+      {
+        id: "plant22",
+        name: "쇠무릎",
+        image: "쇠무릎.png"
+      },
+      {
+        id: "plant23",
+        name: "아주가",
+        image: "아주가.png"
+      },
+      {
+        id: "plant24",
+        name: "여뀌바늘",
+        image: "여뀌바늘.png"
+      },
+      {
+        id: "plant25",
+        name: "영산홍",
+        image: "영산홍.png"
+      },
+      {
+        id: "plant26",
+        name: "은행나무",
+        image: "은행나무.png"
+      },
+      {
+        id: "plant27",
+        name: "장미",
+        image: "장미.png"
+      },
+      {
+        id: "plant28",
+        name: "주목나무",
+        image: "주목나무.png"
+      },
+      {
+        id: "plant29",
+        name: "줄사철나무",
+        image: "줄사철나무.png"
+      },
+      {
+        id: "plant30",
+        name: "철쭉",
+        image: "철쭉.png"
+      },
+      {
+        id: "plant31",
+        name: "청화쑥부쟁이",
+        image: "청화쑥부쟁이.png"
+      },
+      {
+        id: "plant32",
+        name: "큰꽃으아리",
+        image: "큰꽃으아리.png"
+      },
+      {
+        id: "plant33",
+        name: "해국",
+        image: "해국.png"
+      },
+      {
+        id: "plant34",
+        name: "흰줄무늬지리대사초",
+        image: "흰줄무늬지리대사초.png"
+      }
+    ];
+
+    let plantModel = null;
+
+    const MODEL_URL = "./my_model/";
+
+    async function loadPlantModel() {
+
+      if (plantModel) return;
+
+      plantModel = await tmImage.load(
+        MODEL_URL + "model.json",
+        MODEL_URL + "metadata.json"
+      );
+
+    }
+
+    const collectedPlants = new Set();
+
+    let endingPending = false;
+
+
+    function updateCollectionCount() {
+
+      document.getElementById("collection-count").textContent =
+        collectedPlants.size + "/" + plants.length;
+
+    }
+
+
+    function closeAllPopups() {
+
+      document.querySelectorAll(".popup").forEach(popup => {
+
+        popup.style.display = "none";
+
+      });
+
+      document.getElementById("large-card").style.display = "none";
+
+    }
+
+
+    function openPopup(id) {
+
+      closeAllPopups();
+
+      document.getElementById(id).style.display = "block";
+
+    }
+
+
+    document.getElementById("dictionary-button")
+      .addEventListener("click", () => {
+
+        dictionaryPage = 0;
+
+        renderDictionary();
+
+        openPopup("dictionary-popup");
+
+      });
+
+
+    document.getElementById("help-button")
+      .addEventListener("click", () => {
+
+        openPopup("help-popup");
+
+      });
+
+
+    document.getElementById("camera-button")
+      .addEventListener("click", () => {
+
+        openPopup("camera-popup");
+
+      });
+
+
+    document.getElementById("exit-button")
+      .addEventListener("click", () => {
+
+        openPopup("exit-popup");
+
+      });
+
+
+    document.querySelectorAll(".popup-close").forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        closeAllPopups();
+
+      });
+
+    });
+
+
+    let dictionaryPage = 0;
+
+
+    function renderDictionary() {
+
+      const container =
+        document.getElementById("dictionary-cards");
+
+      container.innerHTML = "";
+
+      const collected = plants.filter(plant =>
+        collectedPlants.has(plant.id)
+      );
+
+      const cardsPerPage = 3;
+
+      const totalPages = Math.ceil(
+        collected.length / cardsPerPage
+      );
+
+      if (totalPages === 0) {
+
+        container.innerHTML = "<p>아직 발견한 식물이 없어요!</p>";
+
+        return;
+
+      }
+
+      if (dictionaryPage >= totalPages) {
+
+        dictionaryPage = totalPages - 1;
+
+      }
+
+      const start = dictionaryPage * cardsPerPage;
+
+      const pagePlants = collected.slice(
+        start,
+        start + cardsPerPage
+      );
+
+
+      pagePlants.forEach(plant => {
+
+        const card = document.createElement("div");
+
+        card.className = "plant-card";
+
+        card.innerHTML = `
+          <img src="${plant.image}" alt="${plant.name}">
+          <p>${plant.name}</p>
+        `;
+
+        card.addEventListener("click", () => {
+
+          showLargeCard(plant);
+
+        });
+
+        container.appendChild(card);
+
+      });
+
+
+      const pageControls = document.createElement("div");
+
+      pageControls.id = "dictionary-pagination";
+
+      pageControls.innerHTML = `
+        <button id="previous-page">이전</button>
+        <span>${dictionaryPage + 1} / ${totalPages}</span>
+        <button id="next-page">다음</button>
+      `;
+
+      container.appendChild(pageControls);
+
+
+      document.getElementById("previous-page")
+        .disabled = dictionaryPage === 0;
+
+      document.getElementById("next-page")
+        .disabled = dictionaryPage === totalPages - 1;
+
+
+      document.getElementById("previous-page")
+        .addEventListener("click", () => {
+
+          dictionaryPage--;
+
+          renderDictionary();
+
+        });
+
+
+      document.getElementById("next-page")
+        .addEventListener("click", () => {
+
+          dictionaryPage++;
+
+          renderDictionary();
+
+        });
+
+    }
+
+
+    function showLargeCard(plant) {
+
+      document.getElementById("dictionary-popup").style.display = "none";
+
+      document.getElementById("large-card-image").src = plant.image;
+
+      document.getElementById("large-card-name").textContent =
+        plant.name;
+
+      document.getElementById("large-card").style.display = "flex";
+
+    }
+
+
+    document.getElementById("large-card")
+      .addEventListener("click", () => {
+
+        document.getElementById("large-card").style.display = "none";
+
+
+        if (endingPending) {
+
+          endingPending = false;
+
+          startOutro();
+
+          return;
+
+        }
+
+        renderDictionary();
+
+        document.getElementById("dictionary-popup").style.display = "block";
+
+      });
+
+
+    // ==============================
+    // 식물 획득 처리
+    // ==============================
+
+    function collectPlant(plantId) {
+
+      const plant = plants.find(item => item.id === plantId);
+
+      if (!plant) return;
+
+      const isNew = !collectedPlants.has(plantId);
+
+      collectedPlants.add(plantId);
+
+      updateCollectionCount();
+
+      if (isNew && collectedPlants.size === plants.length) {
+
+        endingPending = true;
+
+        alert("축하합니다! 모든 식물을 모았습니다!");
+
+      }
+
+      showLargeCard(plant);
+
+    }
+
+    document.getElementById("plant-upload")
+      .addEventListener("change", async event => {
+
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+
+        if (!file.type.startsWith("image/")) {
+
+          document.getElementById("recognition-result").textContent =
+            "이미지 파일을 선택해주세요.";
+
+          return;
+
+        }
+
+
+        const imageURL = URL.createObjectURL(file);
+
+        const preview = document.getElementById("photo-preview");
+
+        preview.src = imageURL;
+
+        preview.style.display = "block";
+
+
+        const result =
+          document.getElementById("recognition-result");
+
+        result.textContent = "AI가 식물을 분석하고 있습니다...";
+
+
+        try {
+
+          await loadPlantModel();
+
+          await preview.decode();
+
+          const predictions = await plantModel.predict(preview);
+
+          predictions.sort((a, b) =>
+            b.probability - a.probability
+          );
+
+          const best = predictions[0];
+
+          const foundPlant = plants.find(
+            plant => plant.name === best.className
+          );
+
+
+          if (!foundPlant || best.probability < 0.65) {
+
+            result.textContent =
+              "식물을 정확하게 인식하지 못했어요. 다시 촬영해주세요.";
+
+            return;
+
+          }
+
+
+          result.textContent =
+            foundPlant.name + " 발견!";
+
+          collectPlant(foundPlant.id);
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          result.textContent =
+            "AI 모델을 불러오지 못했어요. 모델 파일을 확인해주세요.";
+
+        }
+
+      });
+
+    document.getElementById("exit-no")
+      .addEventListener("click", () => {
+
+        closeAllPopups();
+
+      });
+
+
+    document.getElementById("exit-yes")
+      .addEventListener("click", () => {
+
+        clearInterval(typingTimer);
+        clearInterval(outroTypingTimer);
+
+        isTyping = false;
+        outroIsTyping = false;
+
+        dialogueIndex = 0;
+        outroIndex = 0;
+
+        afterResponse = "";
+
+        collectedPlants.clear();
+
+        endingPending = false;
+
+        updateCollectionCount();
+
+        document.getElementById("plant-upload").value = "";
+
+        document.getElementById("photo-preview").src = "";
+
+        document.getElementById("photo-preview").style.display = "none";
+
+        document.getElementById("recognition-result").textContent =
+          "사진을 선택해주세요.";
+
+        closeAllPopups();
+
+        exploreScene.style.display = "none";
+        introScene.style.display = "none";
+        outroScene.style.display = "none";
+        creditsScene.style.display = "none";
+
+        startScene.style.display = "flex";
+
+      });
 
     updateCollectionCount();
 
-    document.getElementById("plant-upload").value = "";
-
-    document.getElementById("photo-preview").src = "";
-    document.getElementById("photo-preview").style.display = "none";
-
-    document.getElementById("recognition-result").textContent =
-      "사진을 선택해주세요.";
-
-    closeAllPopups();
-
-    exploreScene.style.display = "none";
-    introScene.style.display = "none";
-    startScene.style.display = "flex";
-
-  });
-
-
-updateCollectionCount();
   </script>
-
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
 </body>
 </html>
