@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -145,12 +144,7 @@
       justify-content: center;
       padding: 24px;
       text-align: center;
-
-      background-image: url("2026 과학수행 지도.png");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      }
+    }
 
     @media (max-width: 600px) {
       h1 {
@@ -218,11 +212,122 @@
 
   </section>
 
-  <!-- 탐험 화면 -->
-  <section id="explore">
-  </section>
+<section id="explore">
 
-  <script>
+  <aside id="side-menu">
+
+    <button class="menu-button" id="dictionary-button">
+      <img src="사전.png" alt="사전">
+    </button>
+
+    <p id="collection-count">0/5</p>
+
+    <button class="menu-button" id="help-button">
+      <img src="방법.png" alt="사용법">
+    </button>
+
+    <button class="menu-button" id="camera-button">
+      <img src="카메라.png" alt="카메라">
+    </button>
+
+    <button class="menu-button" id="exit-button">
+      <img src="취소.png" alt="종료">
+    </button>
+
+  </aside>
+
+
+  <div id="map-area">
+
+    <div class="popup" id="dictionary-popup">
+
+      <button class="popup-close" data-close="dictionary-popup">
+        <img src="뒤로가기.png" alt="닫기">
+      </button>
+
+      <h2>식물 도감</h2>
+  
+      <div id="dictionary-cards"></div>
+
+    </div>
+
+
+    <div class="popup" id="help-popup">
+
+      <button class="popup-close" data-close="help-popup">
+        <img src="뒤로가기.png" alt="닫기">
+      </button>
+
+      <h2>게임 사용법</h2>
+
+      <p><img src="사전.png" alt="사전">: 지금까지 수집한 식물 카드를 확인합니다.</p>
+      <p><img src="카메라.png" alt="카메라">: 식물 사진을 촬영하거나 업로드할 수 있습니다.</p>
+      <p><img src="취소.png" alt="닫기">: 시작 화면으로 돌아갑니다. 모든 기록은 초기화됩니다.</p>
+      <p>식물이 인식되면 해당 식물 카드를 획득할 수 있습니다.</p>
+      <p>중복된 사진은 개수로 인정되지 않습니다.<p>
+
+    </div>
+
+
+    <div class="popup" id="camera-popup">
+
+      <button class="popup-close" data-close="camera-popup">
+        <img src="뒤로가기.png" alt="닫기">
+      </button>
+
+      <h2>식물 발견!</h2>
+
+      <p>식물 사진을 촬영하거나 업로드해주세요.</p>
+
+      <input
+        type="file"
+        id="plant-upload"
+        accept="image/*"
+        capture="environment"
+      >
+
+      <img id="photo-preview" alt="업로드한 식물 사진">
+
+      <p id="recognition-result">사진을 선택해 주세요.</p>
+
+    </div>
+
+
+    <div class="popup" id="exit-popup">
+
+      <button class="popup-close" data-close="exit-popup">
+        <img src="취소.png" alt="닫기">
+      </button>
+
+      <h2>게임 종료</h2>
+
+      <p id="exit-question">
+        정말로 나가시겠습니까?
+      </p>
+
+      <div class="confirm-buttons">
+
+        <button id="exit-yes">예</button>
+
+        <button id="exit-no">아니요</button>
+
+      </div>
+
+    </div>
+
+
+     <div id="large-card">
+
+      <img id="large-card-image" src="" alt="식물 카드">
+
+      <h2 id="large-card-name"></h2>
+
+    </div>
+
+  </div>
+
+</section>
+    <script>
     const startScene = document.getElementById("start");
     const introScene = document.getElementById("intro");
     const exploreScene = document.getElementById("explore");
@@ -462,7 +567,396 @@
 
     }
 
+const plants = [
+  {
+    id: "plant1",
+    name: "구절초",
+    image: "구절초.png"
+  },
+  {
+    id: "plant2",
+    name: "노란색 국화",
+    image: "국화(노랑).png"
+  },
+  {
+    id: "plant3",
+    name: "분홍색 국화",
+    image: "국화(분홍).png"
+  },
+  {
+    id: "plant4",
+    name: "꿩의 비름",
+    image: "꿩의 비름.png"
+  },
+  {
+    id: "plant5",
+    name: "나비바늘꽃",
+    image: "나비바늘꽃.png"
+  },
+ {
+    id: "plant6",
+    name: "눈포아풀",
+    image: "눈포아풀.png"
+  },
+ {
+    id: "plant7",
+    name: "데이지",
+    image: "데이지.png"
+  },
+ {
+    id: "plant8",
+    name: "도라지",
+    image: "도라지.png"
+  },
+ {
+    id: "plant9",
+    name: "말발도리",
+    image: "말발도리.png"
+  },
+ {
+    id: "plant10",
+    name: "망초",
+    image: "망초.png"
+  },
+ {
+    id: "plant11",
+    name: "목향유",
+    image: "목향유.png"
+  },
+ {
+    id: "plant12",
+    name: "무늬사사",
+    image: "무늬사사.png"
+  },
+ {
+    id: "plant13",
+    name: "미국담쟁이덩쿨",
+    image: "미국담쟁이덩쿨.png"
+  },
+ {
+    id: "plant14",
+    name: "미국쑥부쟁이",
+    image: "미국쑥부쟁이.png"
+  },
+ {
+    id: "plant15",
+    name: "미국자리공",
+    image: "미국자리공.png"
+  },
+ {
+    id: "plant16",
+    name: "민들레",
+    image: "민들레.png"
+  },
+ {
+    id: "plant17",
+    name: "배풍등",
+    image: "배풍등.png"
+  },
+ {
+    id: "plant18",
+    name: "백봉국화",
+    image: "백봉국화.png"
+  },
+ {
+    id: "plant19",
+    name: "벽오동나무",
+    image: "벽오동나무.png"
+  },
+ {
+    id: "plant20",
+    name: "사철베고니아",
+    image: "사철베고니아.png"
+  },
+ {
+    id: "plant21",
+    name: "석산",
+    image: "석산.png"
+  },
+ {
+    id: "plant22",
+    name: "쇠무릎",
+    image: "쇠무릎.png"
+  },
+ {
+    id: "plant23",
+    name: "아주가",
+    image: "아주가.png"
+  },
+ {
+    id: "plant24",
+    name: "여뀌바늘",
+    image: "여뀌바늘.png"
+  },
+ {
+    id: "plant25",
+    name: "영산홍",
+    image: "영산홍.png"
+  },
+ {
+    id: "plant26",
+    name: "은행나무",
+    image: "은행나무.png"
+  },
+ {
+    id: "plant27",
+    name: "장미",
+    image: "장미.png"
+  },
+ {
+    id: "plant28",
+    name: "주목나무",
+    image: "주목나무.png"
+  },
+ {
+    id: "plant29",
+    name: "줄사철나무",
+    image: "줄사철나무.png"
+  },
+ {
+    id: "plant30",
+    name: "철쭉",
+    image: "철쭉.png"
+  },
+ {
+    id: "plant31",
+    name: "청화쑥부쟁이",
+    image: "청화쑥부쟁이.png"
+  },
+ {
+    id: "plant32",
+    name: "큰꽃으아리",
+    image: "큰꽃으아리.png"
+  },
+ {
+    id: "plant33",
+    name: "해국",
+    image: "해국.png"
+  },
+ {
+    id: "plant34",
+    name: "흰줄무늬지리대사초",
+    image: "흰줄무늬지리대사초.png"
+  }
+];
+
+const collectedPlants = new Set();
+
+
+function updateCollectionCount() {
+  document.getElementById("collection-count").textContent =
+    collectedPlants.size + "/" + plants.length;
+}
+
+
+function closeAllPopups() {
+  document.querySelectorAll(".popup").forEach(popup => {
+    popup.style.display = "none";
+  });
+
+  document.getElementById("large-card").style.display = "none";
+}
+
+
+function openPopup(id) {
+  closeAllPopups();
+  document.getElementById(id).style.display = "block";
+}
+
+
+document.getElementById("dictionary-button")
+  .addEventListener("click", () => {
+    renderDictionary();
+    openPopup("dictionary-popup");
+  });
+
+
+document.getElementById("help-button")
+  .addEventListener("click", () => {
+    openPopup("help-popup");
+  });
+
+
+document.getElementById("camera-button")
+  .addEventListener("click", () => {
+    openPopup("camera-popup");
+  });
+
+
+document.getElementById("exit-button")
+  .addEventListener("click", () => {
+    openPopup("exit-popup");
+  });
+
+
+document.querySelectorAll(".popup-close").forEach(button => {
+
+  button.addEventListener("click", () => {
+    closeAllPopups();
+  });
+
+});
+
+
+function renderDictionary() {
+
+  const container =
+    document.getElementById("dictionary-cards");
+
+  container.innerHTML = "";
+
+  plants.forEach(plant => {
+
+    const card = document.createElement("div");
+    card.className = "plant-card";
+
+    if (collectedPlants.has(plant.id)) {
+
+      card.innerHTML = `
+        <img src="${plant.image}" alt="${plant.name}">
+        <p>${plant.name}</p>
+      `;
+
+      card.addEventListener("click", () => {
+        showLargeCard(plant);
+      });
+
+    } else {
+
+      card.innerHTML = `
+        <div style="
+          aspect-ratio:1/1;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-size:45px;
+          color:#A8B8AC;
+        ">?</div>
+        <p>미발견</p>
+      `;
+
+    }
+
+    container.appendChild(card);
+
+  });
+
+}
+
+
+function showLargeCard(plant) {
+
+  document.getElementById("dictionary-popup").style.display = "none";
+
+  document.getElementById("large-card-image").src = plant.image;
+
+  document.getElementById("large-card-name").textContent =
+    plant.name;
+
+  document.getElementById("large-card").style.display = "flex";
+
+}
+
+
+document.getElementById("large-card")
+  .addEventListener("click", () => {
+
+    document.getElementById("large-card").style.display = "none";
+
+    renderDictionary();
+
+    document.getElementById("dictionary-popup").style.display = "block";
+
+  });
+
+
+function collectPlant(plantId) {
+
+  const plant = plants.find(item => item.id === plantId);
+
+  if (!plant) return;
+
+  collectedPlants.add(plantId);
+
+  updateCollectionCount();
+
+  showLargeCard(plant);
+
+}
+
+
+document.getElementById("plant-upload")
+  .addEventListener("change", event => {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      document.getElementById("recognition-result").textContent =
+        "이미지 파일을 선택해주세요.";
+      return;
+    }
+
+    const imageURL = URL.createObjectURL(file);
+
+    const preview =
+      document.getElementById("photo-preview");
+
+    preview.src = imageURL;
+    preview.style.display = "block";
+
+    document.getElementById("recognition-result").textContent =
+      "사진 업로드 완료! AI 모델 연결을 기다리는 중....";
+
+  });
+
+
+document.getElementById("exit-no")
+  .addEventListener("click", () => {
+
+    closeAllPopups();
+
+
+  });
+
+
+document.getElementById("exit-yes")
+  .addEventListener("click", () => {
+
+    clearInterval(typingTimer);
+
+    isTyping = false;
+    dialogueIndex = 0;
+    afterResponse = "";
+
+    collectedPlants.clear();
+
+    updateCollectionCount();
+
+    document.getElementById("plant-upload").value = "";
+
+    document.getElementById("photo-preview").src = "";
+    document.getElementById("photo-preview").style.display = "none";
+
+    document.getElementById("recognition-result").textContent =
+      "사진을 선택해주세요.";
+
+    closeAllPopups();
+
+    exploreScene.style.display = "none";
+    introScene.style.display = "none";
+    startScene.style.display = "flex";
+
+  });
+
+
+updateCollectionCount();
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 
 </body>
 </html>
