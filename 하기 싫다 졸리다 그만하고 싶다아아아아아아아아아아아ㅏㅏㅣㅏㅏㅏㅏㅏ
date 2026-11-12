@@ -73,6 +73,71 @@
       padding: 24px;
       gap: 15px;
     }
+#outro {
+  display: none;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  gap: 15px;
+}
+
+#credits {
+  display: none;
+  min-height: 100vh;
+  background-color: #D5FAEA;
+  color: #10564D;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 15px;
+  padding: 30px;
+  font-family: "IsYun", sans-serif;
+}
+
+#credits h1 {
+  font-family: "Hippie", sans-serif;
+}
+
+#credits button {
+  background-color: #10564D;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+#outro-character {
+  max-width: 45vw;
+  max-height: 45vh;
+  object-fit: contain;
+}
+
+#outro-dialogue-box {
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+  padding: 10px;
+}
+
+#outro-dialogue-text {
+  font-family: "Hippie", sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  color: #10564D;
+  line-height: 1.6;
+  margin: 0;
+  word-break: keep-all;
+}
+
+#outro-click-hint {
+  font-family: "IsYun", sans-serif;
+  font-size: 16px;
+  color: #78909C;
+  margin: 5px 0;
+}
 
     #character-image {
       max-width: 45vw;
@@ -154,6 +219,17 @@
       #dialogue-text {
         font-size: 23px;
       }
+    #outro-dialogue-text {
+  font-size: 23px;
+}
+
+#outro-click-hint {
+  font-size: 14px;
+}
+
+#outro-character {
+  max-width: 75vw;
+}
 
       #click-hint {
         font-size: 14px;
@@ -250,7 +326,44 @@
     </div>
 
   </section>
+<section id="outro">
 
+  <img
+    id="outro-character"
+    src="KakaoTalk_20261104_194403328_02.png"
+    alt="오동이"
+  >
+
+  <div id="outro-dialogue-box">
+    <p id="outro-dialogue-text"></p>
+  </div>
+
+  <p id="outro-click-hint">화면을 클릭하세요</p>
+
+</section>
+
+
+<section id="credits">
+
+  <h1>THE END</h1>
+
+  <h2>팀원</h2>
+
+  <p>2414 이혜민</p>
+  <p>2416 임연우</p>
+  <p>2417 전예지</p>
+  <p>2422 한유은</p>
+  <p>2423 황혜나</p>
+  <p>AI 모델: Teachable Machine</p>
+  <p>특별출연: 오동이(우리 학교 동상)</p>
+
+  <p>플레이해 주셔서 감사합니다!</p>
+
+  <button id="restart-button">
+    처음으로
+  </button>
+
+</section>
 <section id="explore">
 
   <aside id="side-menu">
