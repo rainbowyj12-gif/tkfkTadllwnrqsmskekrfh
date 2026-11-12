@@ -818,6 +818,7 @@ function openPopup(id) {
 
 document.getElementById("dictionary-button")
   .addEventListener("click", () => {
+    dictionaryPage = 0;
     renderDictionary();
     openPopup("dictionary-popup");
   });
