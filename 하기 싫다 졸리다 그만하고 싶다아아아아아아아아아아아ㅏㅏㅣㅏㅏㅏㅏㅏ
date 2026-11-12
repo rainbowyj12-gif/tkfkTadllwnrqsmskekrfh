@@ -740,6 +740,19 @@ const plants = [
   }
 ];
 
+let plantModel = null;
+
+const MODEL_URL = "./my_model/";
+
+async function loadPlantModel() {
+  if (plantModel) return;
+
+  plantModel = await tmImage.load(
+    MODEL_URL + "model.json",
+    MODEL_URL + "metadata.json"
+  );
+}
+
 const collectedPlants = new Set();
 
 
@@ -886,7 +899,7 @@ function collectPlant(plantId) {
 
 
 document.getElementById("plant-upload")
-  .addEventListener("change", event => {
+  .addEventListener("change", async event => {
 
     const file = event.target.files[0];
 
@@ -900,16 +913,54 @@ document.getElementById("plant-upload")
 
     const imageURL = URL.createObjectURL(file);
 
-    const preview =
-      document.getElementById("photo-preview");
+    const preview = document.getElementById("photo-preview");
 
     preview.src = imageURL;
     preview.style.display = "block";
 
-    document.getElementById("recognition-result").textContent =
-      "사진 업로드 완료! AI 모델 연결을 기다리는 중....";
+    const result = document.getElementById("recognition-result");
 
-  });
+    result.textContent = "AI가 식물을 분석하고 있습니다...";
+
+    try {
+      await loadPlantModel();
+
+      await preview.decode();
+
+      const predictions = await plantModel.predict(preview);
+
+      predictions.sort((a, b) =>
+        b.probability - a.probability
+      );
+
+      const best = predictions[0];
+
+      const foundPlant = plants.find(
+        plant => plant.name === best.className
+      );
+
+
+      if (!foundPlant || best.probability < 0.65) {
+        result.textContent =
+          "식물을 정확하게 인식하지 못했어요. 다시 촬영해주세요.";
+        return;
+      }
+
+      result.textContent =
+        foundPlant.name + " 발견!";
+
+      collectPlant(foundPlant.id);
+
+    } catch (error) {
+
+      console.error(error);
+
+      result.textContent =
+        "AI 모델을 불러오지 못했어요. 모델 파일을 확인해주세요.";
+
+    }
+
+});
 
 
 document.getElementById("exit-no")
