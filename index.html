@@ -275,6 +275,69 @@ h1 {
   background-color: #D5FAEA;
 }
 
+/* 식물 발견 위치 표시 */
+#plant-markers {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.plant-marker {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #10564D;
+  border-radius: 50%;
+  background: white;
+  font-size: 24px;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.marker-label {
+  display: none;
+  position: absolute;
+  left: 50%;
+  bottom: 48px;
+  transform: translateX(-50%);
+  padding: 8px 13px;
+  border-radius: 10px;
+  background: white;
+  color: #10564D;
+  font-size: 15px;
+  font-weight: bold;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px #0002;
+}
+
+.plant-marker.active .marker-label {
+  display: block;
+}
+
+#map-instruction {
+  display: none;
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 90%;
+  margin: 0;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: white;
+  color: #10564D;
+  font-weight: bold;
+  pointer-events: none;
+}
+
 /* 팝업 */
 
 .popup {
@@ -578,6 +641,10 @@ h1 {
   </aside>
 
   <div id="map-area">
+
+    <!-- 식물 발견 위치 표시 -->
+    <div id="plant-markers"></div>
+    <p id="map-instruction">🌱 식물을 발견한 위치를 지도에서 클릭하세요!</p>
 
     <!-- 도감 팝업 -->
 
@@ -1126,6 +1193,12 @@ async function loadPlantModel() {
 
 const collectedPlants = new Set();
 
+// 지도에 기록된 식물 위치
+const plantLocations = [];
+
+// 현재 지도에 위치를 기록할 식물
+let pendingPlant = null;
+
 let endingPending = false;
 let dictionaryPage = 0;
 
@@ -1312,8 +1385,6 @@ function collectPlant(plantId) {
 
     alert("축하합니다! 모든 식물을 모았습니다!");
   }
-
-  showLargeCard(plant);
 }
 
 /* ==============================
@@ -1341,6 +1412,166 @@ document.querySelectorAll(".popup-close")
     button.addEventListener("click", () => {
       closeAllPopups();
     });
+});
+
+/* ==============================
+   식물 발견 위치 기록
+============================== */
+
+const mapArea = document.getElementById("map-area");
+const markerLayer = document.getElementById("plant-markers");
+const mapInstruction = document.getElementById("map-instruction");
+
+// 지도 배경 이미지의 원본 크기를 확인하기 위한 이미지 객체
+const mapBackgroundImage = new Image();
+mapBackgroundImage.src = "2026 과학수행 지도.png";
+
+// background-size: contain으로 표시되는 실제 지도 영역 계산
+function getMapImageBounds() {
+
+  const rect = mapArea.getBoundingClientRect();
+
+  if (!mapBackgroundImage.naturalWidth ||
+      !mapBackgroundImage.naturalHeight) {
+    return null;
+  }
+
+  const imageRatio =
+    mapBackgroundImage.naturalWidth / mapBackgroundImage.naturalHeight;
+
+  const areaRatio = rect.width / rect.height;
+
+  let width;
+  let height;
+
+  if (imageRatio > areaRatio) {
+    width = rect.width;
+    height = width / imageRatio;
+  } else {
+    height = rect.height;
+    width = height * imageRatio;
+  }
+
+  return {
+    left: (rect.width - width) / 2,
+    top: (rect.height - height) / 2,
+    width,
+    height
+  };
+}
+
+// 기록된 좌표를 현재 화면 크기에 맞춰 마커에 적용
+function positionPlantMarker(marker, location) {
+
+  const rect = mapArea.getBoundingClientRect();
+  const bounds = getMapImageBounds();
+
+  if (!bounds) return;
+
+  const x = bounds.left + location.x * bounds.width;
+  const y = bounds.top + location.y * bounds.height;
+
+  marker.style.left = (x / rect.width * 100) + "%";
+  marker.style.top = (y / rect.height * 100) + "%";
+}
+
+// 지도에 식물 위치 아이콘 생성
+function createPlantMarker(location) {
+
+  const marker = document.createElement("button");
+
+  marker.type = "button";
+  marker.className = "plant-marker";
+  marker.textContent = "🌱";
+  marker.setAttribute(
+    "aria-label",
+    location.plantName + " 발견 위치"
+  );
+
+  const label = document.createElement("span");
+  label.className = "marker-label";
+  label.textContent = location.plantName;
+
+  marker.appendChild(label);
+
+  marker.addEventListener("click", event => {
+
+    event.stopPropagation();
+
+    document.querySelectorAll(".plant-marker").forEach(item => {
+      if (item !== marker) {
+        item.classList.remove("active");
+      }
+    });
+
+    marker.classList.toggle("active");
+  });
+
+  markerLayer.appendChild(marker);
+  positionPlantMarker(marker, location);
+}
+
+// 지도에서 사용자가 발견 위치를 클릭하면 해당 식물 위치 저장
+mapArea.addEventListener("click", event => {
+
+  if (!pendingPlant) return;
+
+  if (event.target.closest(".popup")) return;
+  if (event.target.closest("#large-card")) return;
+  if (event.target.closest(".plant-marker")) return;
+
+  const rect = mapArea.getBoundingClientRect();
+  const bounds = getMapImageBounds();
+
+  if (!bounds) {
+    mapInstruction.textContent =
+      "지도 이미지를 불러오지 못했습니다. 지도 파일을 확인해주세요.";
+    return;
+  }
+
+  const clickX = event.clientX - rect.left;
+  const clickY = event.clientY - rect.top;
+
+  // 지도 이미지가 실제로 표시되는 영역 안에서만 기록
+  if (
+    clickX < bounds.left ||
+    clickX > bounds.left + bounds.width ||
+    clickY < bounds.top ||
+    clickY > bounds.top + bounds.height
+  ) {
+    return;
+  }
+
+  const location = {
+    plantId: pendingPlant.id,
+    plantName: pendingPlant.name,
+    x: (clickX - bounds.left) / bounds.width,
+    y: (clickY - bounds.top) / bounds.height
+  };
+
+  plantLocations.push(location);
+  createPlantMarker(location);
+
+  pendingPlant = null;
+  mapInstruction.style.display = "none";
+
+  // 마지막 식물까지 수집했다면 위치 기록 후 아웃트로 진행
+  if (endingPending) {
+    endingPending = false;
+    startOutro();
+  }
+});
+
+// 창 크기가 바뀌면 마커 위치도 지도 이미지에 맞춰 다시 배치
+window.addEventListener("resize", () => {
+
+  const markers = markerLayer.querySelectorAll(".plant-marker");
+
+  markers.forEach((marker, index) => {
+    if (plantLocations[index]) {
+      positionPlantMarker(marker, plantLocations[index]);
+    }
+  });
 });
 
 /* ==============================
@@ -1428,6 +1659,24 @@ document.getElementById("plant-upload")
 
       collectPlant(foundPlant.id);
 
+      // 지도에 기록할 식물 지정
+      pendingPlant = foundPlant;
+
+      // 식물 분류에 성공하면 카메라 팝업 자동 닫기
+      closeAllPopups();
+
+      // 다음 촬영을 위해 사진 입력과 미리보기 초기화
+      preview.src = "";
+      preview.style.display = "none";
+      document.getElementById("plant-upload").value = "";
+
+      // 지도에서 발견 위치를 선택하도록 안내
+      mapInstruction.textContent =
+        "🌱 " + foundPlant.name +
+        " 발견! 지도에서 발견한 위치를 클릭하세요!";
+
+      mapInstruction.style.display = "block";
+
     } catch (error) {
 
       console.error("AI 처리 오류:", error);
@@ -1461,7 +1710,12 @@ function resetGame() {
   afterResponse = "";
 
   collectedPlants.clear();
+  plantLocations.length = 0;
+  pendingPlant = null;
   endingPending = false;
+
+  markerLayer.innerHTML = "";
+  mapInstruction.style.display = "none";
 
   updateCollectionCount();
 
